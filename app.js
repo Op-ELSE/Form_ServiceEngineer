@@ -27,7 +27,145 @@ window.addEventListener("DOMContentLoaded", () => {
     // Fecha actual por defecto
     const inputFecha = document.getElementById("input-fecha");
     if (inputFecha) inputFecha.valueAsDate = new Date();
+
+    // Auto pre-llenado desde parámetros de URL si existen
+    loadQueryParams();
 });
+
+// ==========================================================================
+// PRE-LLENADO AUTOMÁTICO VÍA URL (QUERY PARAMETERS)
+// ==========================================================================
+function loadQueryParams() {
+    const params = new URLSearchParams(window.location.search);
+    if (!window.location.search) return;
+
+    // 1. Cliente (?cliente=...)
+    if (params.has("cliente")) {
+        const clienteInput = document.getElementById("input-cliente");
+        if (clienteInput) clienteInput.value = params.get("cliente");
+    }
+
+    // 2. Orden de Servicio (?os=...)
+    if (params.has("os")) {
+        const osInput = document.getElementById("input-os");
+        if (osInput) osInput.value = params.get("os");
+    }
+
+    // 3. Nombre del Servicio (?servicio=...)
+    if (params.has("servicio")) {
+        const servInput = document.getElementById("input-servicio");
+        if (servInput) servInput.value = params.get("servicio");
+    }
+
+    // 4. Supervisor ABB (?supervisor=...)
+    if (params.has("supervisor")) {
+        const supVal = params.get("supervisor");
+        const select = document.getElementById("input-supervisor-evaluador");
+        if (select) {
+            let found = false;
+            for (let opt of select.options) {
+                if (opt.value.toLowerCase() === supVal.toLowerCase()) {
+                    select.value = opt.value;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                select.value = "OTRO";
+                toggleSupervisorOtro();
+                const otroInput = document.getElementById("input-supervisor-otro");
+                if (otroInput) otroInput.value = supVal;
+            }
+        }
+    }
+
+    // 5. Fecha (?fecha=AAAA-MM-DD)
+    if (params.has("fecha")) {
+        const fechaInput = document.getElementById("input-fecha");
+        if (fechaInput) fechaInput.value = params.get("fecha");
+    }
+
+    // 6. Contratistas Operativos (?operativos=COSERPO,HITACHI)
+    if (params.has("operativos")) {
+        const opList = params.get("operativos").split(",").map(s => s.trim().toUpperCase());
+        const checkboxes = document.querySelectorAll('input[name="check-contratistas-op"]');
+        let otros = [];
+        opList.forEach(target => {
+            let matched = false;
+            checkboxes.forEach(cb => {
+                if (cb.value.toUpperCase() === target) {
+                    cb.checked = true;
+                    matched = true;
+                }
+            });
+            if (!matched && target !== "OTRO") {
+                otros.push(target);
+            }
+        });
+        if (otros.length > 0) {
+            const checkOtro = document.getElementById("check-op-otro");
+            if (checkOtro) {
+                checkOtro.checked = true;
+                toggleContratistaOpOtro();
+                const inputOtro = document.getElementById("input-op-otro");
+                if (inputOtro) inputOtro.value = otros.join(", ");
+            }
+        }
+    }
+
+    // 7. Empresa HSE (?hse=GREENPROSOL)
+    if (params.has("hse")) {
+        const hseVal = params.get("hse");
+        const selectHse = document.getElementById("select-contratista-hse");
+        if (selectHse) {
+            let found = false;
+            for (let opt of selectHse.options) {
+                if (opt.value.toLowerCase() === hseVal.toLowerCase()) {
+                    selectHse.value = opt.value;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                selectHse.value = "OTRO";
+                toggleHseOtro();
+                const inputOtro = document.getElementById("input-hse-otro");
+                if (inputOtro) inputOtro.value = hseVal;
+            }
+        }
+    }
+
+    // 8. Apoyo de Almacén (?almacen=SI o ?almacen=NO)
+    if (params.has("almacen")) {
+        const almVal = params.get("almacen").toUpperCase();
+        const radios = document.getElementsByName("radio_almacen");
+        for (let r of radios) {
+            r.checked = (r.value === almVal);
+        }
+    }
+
+    // 9. Empresa de Movilidad (?movilidad=Triny Rental)
+    if (params.has("movilidad")) {
+        const movVal = params.get("movilidad");
+        const selectMov = document.getElementById("select-contratista-movilidad");
+        if (selectMov) {
+            let found = false;
+            for (let opt of selectMov.options) {
+                if (opt.value.toLowerCase() === movVal.toLowerCase()) {
+                    selectMov.value = opt.value;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                selectMov.value = "OTRO";
+                toggleMovilidadOtro();
+                const inputOtro = document.getElementById("input-movilidad-otro");
+                if (inputOtro) inputOtro.value = movVal;
+            }
+        }
+    }
+}
 
 // ==========================================================================
 // CONTROLADORES DE CAMPOS "OTRO"
