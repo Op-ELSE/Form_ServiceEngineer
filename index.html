@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABB - Evaluación de Contratistas (Supervisores)</title>
+    <title>ABB - Evaluación de Contratistas</title>
     <!-- Google Fonts: Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,22 +32,22 @@
     </header>
 
     <!-- Main Container -->
-    <main class="main-container">
-        <section class="survey-section">
+    <main class="main-content">
+        <div class="survey-container">
             <div class="survey-card">
                 
-                <!-- Wizard Progress Indicator -->
-                <div class="wizard-header">
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" id="survey-progress"></div>
+                <!-- Progress bar style -->
+                <div class="progress-container">
+                    <div class="progress-bar-background">
+                        <div class="progress-bar-fill" id="survey-progress"></div>
                     </div>
-                    <div class="step-indicators" id="step-indicators-container">
-                        <div class="step-dot active" id="dot-1"><span>1</span><label>Datos Generales</label></div>
-                        <div class="step-dot" id="dot-2"><span>2</span><label>Operativos</label></div>
-                        <div class="step-dot" id="dot-3"><span>3</span><label>HSE / Seguridad</label></div>
-                        <div class="step-dot" id="dot-4"><span>4</span><label>Almacén</label></div>
-                        <div class="step-dot" id="dot-5"><span>5</span><label>Movilidad</label></div>
-                        <div class="step-dot" id="dot-6"><span>✓</span><label>Finalizar</label></div>
+                    <div class="steps-indicator">
+                        <div class="step-dot active" id="dot-1">1</div>
+                        <div class="step-dot" id="dot-2">2</div>
+                        <div class="step-dot" id="dot-3">3</div>
+                        <div class="step-dot" id="dot-4">4</div>
+                        <div class="step-dot" id="dot-5">5</div>
+                        <div class="step-dot" id="dot-6">✓</div>
                     </div>
                 </div>
 
@@ -106,104 +106,84 @@
                                 <input type="date" id="input-fecha" required>
                             </div>
 
-                            <hr class="section-divider">
-
                             <!-- SECCIÓN: CONTRATISTAS OPERATIVOS -->
-                            <div class="form-group">
-                                <label class="group-label">Contratistas Operativos a Evaluar <span class="required">*</span></label>
-                                <p class="help-text">Marque todas las empresas contratistas operativas que participaron en el servicio:</p>
+                            <div class="form-group" style="margin-top: 16px;">
+                                <label>Contratistas Operativos a Evaluar <span class="required">*</span></label>
+                                <p style="font-size: 0.85rem; color: var(--medium-gray); margin-top: -4px; margin-bottom: 8px;">Marque las empresas contratistas operativas que participaron en el servicio:</p>
                                 
                                 <div class="supervisors-checklist-grid">
-                                    <label class="supervisor-checkbox-item">
-                                        <input type="checkbox" name="check-contratistas-op" value="BK-TECNOLOGIA">
-                                        <span class="custom-check"></span>
-                                        <span class="checkbox-label">BK-TECNOLOGIA</span>
-                                    </label>
-                                    <label class="supervisor-checkbox-item">
-                                        <input type="checkbox" name="check-contratistas-op" value="CONGLOSER">
-                                        <span class="custom-check"></span>
-                                        <span class="checkbox-label">CONGLOSER</span>
-                                    </label>
-                                    <label class="supervisor-checkbox-item">
-                                        <input type="checkbox" name="check-contratistas-op" value="COSERPO">
-                                        <span class="custom-check"></span>
-                                        <span class="checkbox-label">COSERPO</span>
-                                    </label>
-                                    <label class="supervisor-checkbox-item">
-                                        <input type="checkbox" name="check-contratistas-op" value="EA">
-                                        <span class="custom-check"></span>
-                                        <span class="checkbox-label">EA</span>
-                                    </label>
-                                    <label class="supervisor-checkbox-item">
-                                        <input type="checkbox" name="check-contratistas-op" value="GEEP">
-                                        <span class="custom-check"></span>
-                                        <span class="checkbox-label">GEEP</span>
-                                    </label>
-                                    <label class="supervisor-checkbox-item">
-                                        <input type="checkbox" name="check-contratistas-op" value="GREENPROSOL">
-                                        <span class="custom-check"></span>
-                                        <span class="checkbox-label">GREENPROSOL</span>
-                                    </label>
-                                    <label class="supervisor-checkbox-item">
-                                        <input type="checkbox" name="check-contratistas-op" value="GRUPO HSEC">
-                                        <span class="custom-check"></span>
-                                        <span class="checkbox-label">GRUPO HSEC</span>
-                                    </label>
-                                    <label class="supervisor-checkbox-item">
-                                        <input type="checkbox" name="check-contratistas-op" value="HITACHI">
-                                        <span class="custom-check"></span>
-                                        <span class="checkbox-label">HITACHI</span>
-                                    </label>
-                                    <label class="supervisor-checkbox-item">
-                                        <input type="checkbox" name="check-contratistas-op" value="NAKAMA">
-                                        <span class="custom-check"></span>
-                                        <span class="checkbox-label">NAKAMA</span>
-                                    </label>
-                                    <label class="supervisor-checkbox-item">
-                                        <input type="checkbox" name="check-contratistas-op" value="PLINIO VERA">
-                                        <span class="custom-check"></span>
-                                        <span class="checkbox-label">PLINIO VERA</span>
-                                    </label>
-                                    <label class="supervisor-checkbox-item">
-                                        <input type="checkbox" name="check-contratistas-op" value="POWER CAPACITORS">
-                                        <span class="custom-check"></span>
-                                        <span class="checkbox-label">POWER CAPACITORS</span>
-                                    </label>
-                                    <label class="supervisor-checkbox-item">
-                                        <input type="checkbox" name="check-contratistas-op" value="PROSEGEL">
-                                        <span class="custom-check"></span>
-                                        <span class="checkbox-label">PROSEGEL</span>
-                                    </label>
-                                    <label class="supervisor-checkbox-item">
-                                        <input type="checkbox" name="check-contratistas-op" value="RETYGSAC">
-                                        <span class="custom-check"></span>
-                                        <span class="checkbox-label">RETYGSAC</span>
-                                    </label>
-                                    <label class="supervisor-checkbox-item">
-                                        <input type="checkbox" name="check-contratistas-op" value="TRINY">
-                                        <span class="custom-check"></span>
-                                        <span class="checkbox-label">TRINY</span>
-                                    </label>
-                                    <label class="supervisor-checkbox-item">
-                                        <input type="checkbox" name="check-contratistas-op" value="VERA ELECTRIC">
-                                        <span class="custom-check"></span>
-                                        <span class="checkbox-label">VERA ELECTRIC</span>
-                                    </label>
-                                    <label class="supervisor-checkbox-item">
-                                        <input type="checkbox" name="check-contratistas-op" value="OTRO" id="check-op-otro" onchange="toggleContratistaOpOtro()">
-                                        <span class="custom-check"></span>
-                                        <span class="checkbox-label">OTRO</span>
-                                    </label>
+                                    <div class="supervisor-checkbox-item">
+                                        <input type="checkbox" id="check_op_bk" name="check-contratistas-op" value="BK-TECNOLOGIA">
+                                        <label for="check_op_bk">BK-TECNOLOGIA</label>
+                                    </div>
+                                    <div class="supervisor-checkbox-item">
+                                        <input type="checkbox" id="check_op_congloser" name="check-contratistas-op" value="CONGLOSER">
+                                        <label for="check_op_congloser">CONGLOSER</label>
+                                    </div>
+                                    <div class="supervisor-checkbox-item">
+                                        <input type="checkbox" id="check_op_coserpo" name="check-contratistas-op" value="COSERPO">
+                                        <label for="check_op_coserpo">COSERPO</label>
+                                    </div>
+                                    <div class="supervisor-checkbox-item">
+                                        <input type="checkbox" id="check_op_ea" name="check-contratistas-op" value="EA">
+                                        <label for="check_op_ea">EA</label>
+                                    </div>
+                                    <div class="supervisor-checkbox-item">
+                                        <input type="checkbox" id="check_op_geep" name="check-contratistas-op" value="GEEP">
+                                        <label for="check_op_geep">GEEP</label>
+                                    </div>
+                                    <div class="supervisor-checkbox-item">
+                                        <input type="checkbox" id="check_op_greenprosol" name="check-contratistas-op" value="GREENPROSOL">
+                                        <label for="check_op_greenprosol">GREENPROSOL</label>
+                                    </div>
+                                    <div class="supervisor-checkbox-item">
+                                        <input type="checkbox" id="check_op_grupohsec" name="check-contratistas-op" value="GRUPO HSEC">
+                                        <label for="check_op_grupohsec">GRUPO HSEC</label>
+                                    </div>
+                                    <div class="supervisor-checkbox-item">
+                                        <input type="checkbox" id="check_op_hitachi" name="check-contratistas-op" value="HITACHI">
+                                        <label for="check_op_hitachi">HITACHI</label>
+                                    </div>
+                                    <div class="supervisor-checkbox-item">
+                                        <input type="checkbox" id="check_op_nakama" name="check-contratistas-op" value="NAKAMA">
+                                        <label for="check_op_nakama">NAKAMA</label>
+                                    </div>
+                                    <div class="supervisor-checkbox-item">
+                                        <input type="checkbox" id="check_op_plinio" name="check-contratistas-op" value="PLINIO VERA">
+                                        <label for="check_op_plinio">PLINIO VERA</label>
+                                    </div>
+                                    <div class="supervisor-checkbox-item">
+                                        <input type="checkbox" id="check_op_power" name="check-contratistas-op" value="POWER CAPACITORS">
+                                        <label for="check_op_power">POWER CAPACITORS</label>
+                                    </div>
+                                    <div class="supervisor-checkbox-item">
+                                        <input type="checkbox" id="check_op_prosegel" name="check-contratistas-op" value="PROSEGEL">
+                                        <label for="check_op_prosegel">PROSEGEL</label>
+                                    </div>
+                                    <div class="supervisor-checkbox-item">
+                                        <input type="checkbox" id="check_op_retygsac" name="check-contratistas-op" value="RETYGSAC">
+                                        <label for="check_op_retygsac">RETYGSAC</label>
+                                    </div>
+                                    <div class="supervisor-checkbox-item">
+                                        <input type="checkbox" id="check_op_triny" name="check-contratistas-op" value="TRINY">
+                                        <label for="check_op_triny">TRINY</label>
+                                    </div>
+                                    <div class="supervisor-checkbox-item">
+                                        <input type="checkbox" id="check_op_vera" name="check-contratistas-op" value="VERA ELECTRIC">
+                                        <label for="check_op_vera">VERA ELECTRIC</label>
+                                    </div>
+                                    <div class="supervisor-checkbox-item">
+                                        <input type="checkbox" id="check-op-otro" name="check-contratistas-op" value="OTRO" onchange="toggleContratistaOpOtro()">
+                                        <label for="check-op-otro">OTRO</label>
+                                    </div>
                                 </div>
                                 <div class="form-group" id="group-op-otro" style="display: none; margin-top: 10px;">
                                     <input type="text" id="input-op-otro" placeholder="Escriba el nombre del contratista operativo...">
                                 </div>
                             </div>
 
-                            <hr class="section-divider">
-
                             <!-- SECCIÓN: OTROS SERVICIOS Y APOYOS -->
-                            <div class="form-grid">
+                            <div class="form-grid" style="margin-top: 20px;">
                                 <!-- HSE -->
                                 <div class="form-group">
                                     <label for="select-contratista-hse">Contratista HSE / Seguridad</label>
@@ -238,20 +218,16 @@
 
                             <!-- ALMACEN GEEP-TALLER -->
                             <div class="form-group" style="margin-top: 14px;">
-                                <label class="group-label">¿Recibió apoyo de Almacén (GEEP-TALLER)? <span class="required">*</span></label>
-                                <div class="radio-pill-group">
-                                    <label class="radio-pill">
-                                        <input type="radio" name="radio_almacen" value="SI">
-                                        <span>Sí (GEEP - TALLER)</span>
-                                    </label>
-                                    <label class="radio-pill">
-                                        <input type="radio" name="radio_almacen" value="NO" checked>
-                                        <span>No</span>
-                                    </label>
+                                <label>¿Recibió apoyo de Almacén (GEEP-TALLER)? <span class="required">*</span></label>
+                                <div class="toggle-options" style="margin-top: 8px;">
+                                    <input type="radio" name="radio_almacen" id="almacen_si" value="SI">
+                                    <label for="almacen_si" class="toggle-box">Sí (GEEP-TALLER)</label>
+                                    <input type="radio" name="radio_almacen" id="almacen_no" value="NO" checked>
+                                    <label for="almacen_no" class="toggle-box">No</label>
                                 </div>
                             </div>
 
-                            <div class="step-actions">
+                            <div class="step-actions" style="margin-top: 32px;">
                                 <div></div>
                                 <button type="submit" class="btn btn-primary">
                                     Continuar con Evaluación
@@ -287,12 +263,18 @@
                                     <label>Equipos y herramientas en buen estado, inspeccionados y aptos para la labor.</label>
                                 </div>
                                 <div class="rating-options">
-                                    <input type="radio" name="q_op_equipos" id="q_op_eq_1" value="1" required><label for="q_op_eq_1" class="rating-box">1</label>
-                                    <input type="radio" name="q_op_equipos" id="q_op_eq_2" value="2"><label for="q_op_eq_2" class="rating-box">2</label>
-                                    <input type="radio" name="q_op_equipos" id="q_op_eq_3" value="3"><label for="q_op_eq_3" class="rating-box">3</label>
-                                    <input type="radio" name="q_op_equipos" id="q_op_eq_4" value="4"><label for="q_op_eq_4" class="rating-box">4</label>
-                                    <input type="radio" name="q_op_equipos" id="q_op_eq_5" value="5"><label for="q_op_eq_5" class="rating-box">5</label>
-                                    <input type="radio" name="q_op_equipos" id="q_op_eq_na" value="na"><label for="q_op_eq_na" class="rating-box na">N/A</label>
+                                    <input type="radio" name="q_op_equipos" id="q_op_eq_1" value="1" required>
+                                    <label for="q_op_eq_1" class="rating-box">1<span class="rating-label">Muy insat.</span></label>
+                                    <input type="radio" name="q_op_equipos" id="q_op_eq_2" value="2">
+                                    <label for="q_op_eq_2" class="rating-box">2</label>
+                                    <input type="radio" name="q_op_equipos" id="q_op_eq_3" value="3">
+                                    <label for="q_op_eq_3" class="rating-box">3</label>
+                                    <input type="radio" name="q_op_equipos" id="q_op_eq_4" value="4">
+                                    <label for="q_op_eq_4" class="rating-box">4</label>
+                                    <input type="radio" name="q_op_equipos" id="q_op_eq_5" value="5">
+                                    <label for="q_op_eq_5" class="rating-box">5<span class="rating-label">Muy sat.</span></label>
+                                    <input type="radio" name="q_op_equipos" id="q_op_eq_na" value="na">
+                                    <label for="q_op_eq_na" class="rating-box na">N/A<span class="rating-label">No aplica</span></label>
                                 </div>
                                 <div class="question-comment">
                                     <input type="text" id="comm_q_op_equipos" placeholder="Comentario sobre esta respuesta (Opcional)" class="question-comment-input">
@@ -306,12 +288,18 @@
                                     <label>Personal correctamente uniformado y con los EPPs necesarios y en buen estado.</label>
                                 </div>
                                 <div class="rating-options">
-                                    <input type="radio" name="q_op_epp" id="q_op_epp_1" value="1" required><label for="q_op_epp_1" class="rating-box">1</label>
-                                    <input type="radio" name="q_op_epp" id="q_op_epp_2" value="2"><label for="q_op_epp_2" class="rating-box">2</label>
-                                    <input type="radio" name="q_op_epp" id="q_op_epp_3" value="3"><label for="q_op_epp_3" class="rating-box">3</label>
-                                    <input type="radio" name="q_op_epp" id="q_op_epp_4" value="4"><label for="q_op_epp_4" class="rating-box">4</label>
-                                    <input type="radio" name="q_op_epp" id="q_op_epp_5" value="5"><label for="q_op_epp_5" class="rating-box">5</label>
-                                    <input type="radio" name="q_op_epp" id="q_op_epp_na" value="na"><label for="q_op_epp_na" class="rating-box na">N/A</label>
+                                    <input type="radio" name="q_op_epp" id="q_op_epp_1" value="1" required>
+                                    <label for="q_op_epp_1" class="rating-box">1<span class="rating-label">Muy insat.</span></label>
+                                    <input type="radio" name="q_op_epp" id="q_op_epp_2" value="2">
+                                    <label for="q_op_epp_2" class="rating-box">2</label>
+                                    <input type="radio" name="q_op_epp" id="q_op_epp_3" value="3">
+                                    <label for="q_op_epp_3" class="rating-box">3</label>
+                                    <input type="radio" name="q_op_epp" id="q_op_epp_4" value="4">
+                                    <label for="q_op_epp_4" class="rating-box">4</label>
+                                    <input type="radio" name="q_op_epp" id="q_op_epp_5" value="5">
+                                    <label for="q_op_epp_5" class="rating-box">5<span class="rating-label">Muy sat.</span></label>
+                                    <input type="radio" name="q_op_epp" id="q_op_epp_na" value="na">
+                                    <label for="q_op_epp_na" class="rating-box na">N/A<span class="rating-label">No aplica</span></label>
                                 </div>
                                 <div class="question-comment">
                                     <input type="text" id="comm_q_op_epp" placeholder="Comentario sobre esta respuesta (Opcional)" class="question-comment-input">
@@ -325,12 +313,18 @@
                                     <label>Propone mejoras ante cualquier incidente en el servicio y cumple los lineamientos de seguridad.</label>
                                 </div>
                                 <div class="rating-options">
-                                    <input type="radio" name="q_op_seguridad" id="q_op_seg_1" value="1" required><label for="q_op_seg_1" class="rating-box">1</label>
-                                    <input type="radio" name="q_op_seguridad" id="q_op_seg_2" value="2"><label for="q_op_seg_2" class="rating-box">2</label>
-                                    <input type="radio" name="q_op_seguridad" id="q_op_seg_3" value="3"><label for="q_op_seg_3" class="rating-box">3</label>
-                                    <input type="radio" name="q_op_seguridad" id="q_op_seg_4" value="4"><label for="q_op_seg_4" class="rating-box">4</label>
-                                    <input type="radio" name="q_op_seguridad" id="q_op_seg_5" value="5"><label for="q_op_seg_5" class="rating-box">5</label>
-                                    <input type="radio" name="q_op_seguridad" id="q_op_seg_na" value="na"><label for="q_op_seg_na" class="rating-box na">N/A</label>
+                                    <input type="radio" name="q_op_seguridad" id="q_op_seg_1" value="1" required>
+                                    <label for="q_op_seg_1" class="rating-box">1<span class="rating-label">Muy insat.</span></label>
+                                    <input type="radio" name="q_op_seguridad" id="q_op_seg_2" value="2">
+                                    <label for="q_op_seg_2" class="rating-box">2</label>
+                                    <input type="radio" name="q_op_seguridad" id="q_op_seg_3" value="3">
+                                    <label for="q_op_seg_3" class="rating-box">3</label>
+                                    <input type="radio" name="q_op_seguridad" id="q_op_seg_4" value="4">
+                                    <label for="q_op_seg_4" class="rating-box">4</label>
+                                    <input type="radio" name="q_op_seguridad" id="q_op_seg_5" value="5">
+                                    <label for="q_op_seg_5" class="rating-box">5<span class="rating-label">Muy sat.</span></label>
+                                    <input type="radio" name="q_op_seguridad" id="q_op_seg_na" value="na">
+                                    <label for="q_op_seg_na" class="rating-box na">N/A<span class="rating-label">No aplica</span></label>
                                 </div>
                                 <div class="question-comment">
                                     <input type="text" id="comm_q_op_seguridad" placeholder="Comentario sobre esta respuesta (Opcional)" class="question-comment-input">
@@ -349,12 +343,18 @@
                                     <label>Demuestra predisposición, proactividad y actitud adecuada para la actividad encomendada.</label>
                                 </div>
                                 <div class="rating-options">
-                                    <input type="radio" name="q_op_actitud" id="q_op_act_1" value="1" required><label for="q_op_act_1" class="rating-box">1</label>
-                                    <input type="radio" name="q_op_actitud" id="q_op_act_2" value="2"><label for="q_op_act_2" class="rating-box">2</label>
-                                    <input type="radio" name="q_op_actitud" id="q_op_act_3" value="3"><label for="q_op_act_3" class="rating-box">3</label>
-                                    <input type="radio" name="q_op_actitud" id="q_op_act_4" value="4"><label for="q_op_act_4" class="rating-box">4</label>
-                                    <input type="radio" name="q_op_actitud" id="q_op_act_5" value="5"><label for="q_op_act_5" class="rating-box">5</label>
-                                    <input type="radio" name="q_op_actitud" id="q_op_act_na" value="na"><label for="q_op_act_na" class="rating-box na">N/A</label>
+                                    <input type="radio" name="q_op_actitud" id="q_op_act_1" value="1" required>
+                                    <label for="q_op_act_1" class="rating-box">1<span class="rating-label">Muy insat.</span></label>
+                                    <input type="radio" name="q_op_actitud" id="q_op_act_2" value="2">
+                                    <label for="q_op_act_2" class="rating-box">2</label>
+                                    <input type="radio" name="q_op_actitud" id="q_op_act_3" value="3">
+                                    <label for="q_op_act_3" class="rating-box">3</label>
+                                    <input type="radio" name="q_op_actitud" id="q_op_act_4" value="4">
+                                    <label for="q_op_act_4" class="rating-box">4</label>
+                                    <input type="radio" name="q_op_actitud" id="q_op_act_5" value="5">
+                                    <label for="q_op_act_5" class="rating-box">5<span class="rating-label">Muy sat.</span></label>
+                                    <input type="radio" name="q_op_actitud" id="q_op_act_na" value="na">
+                                    <label for="q_op_act_na" class="rating-box na">N/A<span class="rating-label">No aplica</span></label>
                                 </div>
                                 <div class="question-comment">
                                     <input type="text" id="comm_q_op_actitud" placeholder="Comentario sobre esta respuesta (Opcional)" class="question-comment-input">
@@ -368,12 +368,18 @@
                                     <label>Demuestra puntualidad y permanencia según la hora fijada para el servicio.</label>
                                 </div>
                                 <div class="rating-options">
-                                    <input type="radio" name="q_op_puntualidad" id="q_op_pun_1" value="1" required><label for="q_op_pun_1" class="rating-box">1</label>
-                                    <input type="radio" name="q_op_puntualidad" id="q_op_pun_2" value="2"><label for="q_op_pun_2" class="rating-box">2</label>
-                                    <input type="radio" name="q_op_puntualidad" id="q_op_pun_3" value="3"><label for="q_op_pun_3" class="rating-box">3</label>
-                                    <input type="radio" name="q_op_puntualidad" id="q_op_pun_4" value="4"><label for="q_op_pun_4" class="rating-box">4</label>
-                                    <input type="radio" name="q_op_puntualidad" id="q_op_pun_5" value="5"><label for="q_op_pun_5" class="rating-box">5</label>
-                                    <input type="radio" name="q_op_puntualidad" id="q_op_pun_na" value="na"><label for="q_op_pun_na" class="rating-box na">N/A</label>
+                                    <input type="radio" name="q_op_puntualidad" id="q_op_pun_1" value="1" required>
+                                    <label for="q_op_pun_1" class="rating-box">1<span class="rating-label">Muy insat.</span></label>
+                                    <input type="radio" name="q_op_puntualidad" id="q_op_pun_2" value="2">
+                                    <label for="q_op_pun_2" class="rating-box">2</label>
+                                    <input type="radio" name="q_op_puntualidad" id="q_op_pun_3" value="3">
+                                    <label for="q_op_pun_3" class="rating-box">3</label>
+                                    <input type="radio" name="q_op_puntualidad" id="q_op_pun_4" value="4">
+                                    <label for="q_op_pun_4" class="rating-box">4</label>
+                                    <input type="radio" name="q_op_puntualidad" id="q_op_pun_5" value="5">
+                                    <label for="q_op_pun_5" class="rating-box">5<span class="rating-label">Muy sat.</span></label>
+                                    <input type="radio" name="q_op_puntualidad" id="q_op_pun_na" value="na">
+                                    <label for="q_op_pun_na" class="rating-box na">N/A<span class="rating-label">No aplica</span></label>
                                 </div>
                                 <div class="question-comment">
                                     <input type="text" id="comm_q_op_puntualidad" placeholder="Comentario sobre esta respuesta (Opcional)" class="question-comment-input">
@@ -392,12 +398,18 @@
                                     <label>Demuestra conocimiento técnico en la actividad ejecutada y calidad en el trabajo realizado.</label>
                                 </div>
                                 <div class="rating-options">
-                                    <input type="radio" name="q_op_conocimiento" id="q_op_con_1" value="1" required><label for="q_op_con_1" class="rating-box">1</label>
-                                    <input type="radio" name="q_op_conocimiento" id="q_op_con_2" value="2"><label for="q_op_con_2" class="rating-box">2</label>
-                                    <input type="radio" name="q_op_conocimiento" id="q_op_con_3" value="3"><label for="q_op_con_3" class="rating-box">3</label>
-                                    <input type="radio" name="q_op_conocimiento" id="q_op_con_4" value="4"><label for="q_op_con_4" class="rating-box">4</label>
-                                    <input type="radio" name="q_op_conocimiento" id="q_op_con_5" value="5"><label for="q_op_con_5" class="rating-box">5</label>
-                                    <input type="radio" name="q_op_conocimiento" id="q_op_con_na" value="na"><label for="q_op_con_na" class="rating-box na">N/A</label>
+                                    <input type="radio" name="q_op_conocimiento" id="q_op_con_1" value="1" required>
+                                    <label for="q_op_con_1" class="rating-box">1<span class="rating-label">Muy insat.</span></label>
+                                    <input type="radio" name="q_op_conocimiento" id="q_op_con_2" value="2">
+                                    <label for="q_op_con_2" class="rating-box">2</label>
+                                    <input type="radio" name="q_op_conocimiento" id="q_op_con_3" value="3">
+                                    <label for="q_op_con_3" class="rating-box">3</label>
+                                    <input type="radio" name="q_op_conocimiento" id="q_op_con_4" value="4">
+                                    <label for="q_op_con_4" class="rating-box">4</label>
+                                    <input type="radio" name="q_op_conocimiento" id="q_op_con_5" value="5">
+                                    <label for="q_op_con_5" class="rating-box">5<span class="rating-label">Muy sat.</span></label>
+                                    <input type="radio" name="q_op_conocimiento" id="q_op_con_na" value="na">
+                                    <label for="q_op_con_na" class="rating-box na">N/A<span class="rating-label">No aplica</span></label>
                                 </div>
                                 <div class="question-comment">
                                     <input type="text" id="comm_q_op_conocimiento" placeholder="Comentario sobre esta respuesta (Opcional)" class="question-comment-input">
@@ -416,12 +428,18 @@
                                     <label>Coordinación, comunicación y respuesta oportuna durante la programación y ejecución.</label>
                                 </div>
                                 <div class="rating-options">
-                                    <input type="radio" name="q_op_planificacion" id="q_op_pla_1" value="1" required><label for="q_op_pla_1" class="rating-box">1</label>
-                                    <input type="radio" name="q_op_planificacion" id="q_op_pla_2" value="2"><label for="q_op_pla_2" class="rating-box">2</label>
-                                    <input type="radio" name="q_op_planificacion" id="q_op_pla_3" value="3"><label for="q_op_pla_3" class="rating-box">3</label>
-                                    <input type="radio" name="q_op_planificacion" id="q_op_pla_4" value="4"><label for="q_op_pla_4" class="rating-box">4</label>
-                                    <input type="radio" name="q_op_planificacion" id="q_op_pla_5" value="5"><label for="q_op_pla_5" class="rating-box">5</label>
-                                    <input type="radio" name="q_op_planificacion" id="q_op_pla_na" value="na"><label for="q_op_pla_na" class="rating-box na">N/A</label>
+                                    <input type="radio" name="q_op_planificacion" id="q_op_pla_1" value="1" required>
+                                    <label for="q_op_pla_1" class="rating-box">1<span class="rating-label">Muy insat.</span></label>
+                                    <input type="radio" name="q_op_planificacion" id="q_op_pla_2" value="2">
+                                    <label for="q_op_pla_2" class="rating-box">2</label>
+                                    <input type="radio" name="q_op_planificacion" id="q_op_pla_3" value="3">
+                                    <label for="q_op_pla_3" class="rating-box">3</label>
+                                    <input type="radio" name="q_op_planificacion" id="q_op_pla_4" value="4">
+                                    <label for="q_op_pla_4" class="rating-box">4</label>
+                                    <input type="radio" name="q_op_planificacion" id="q_op_pla_5" value="5">
+                                    <label for="q_op_pla_5" class="rating-box">5<span class="rating-label">Muy sat.</span></label>
+                                    <input type="radio" name="q_op_planificacion" id="q_op_pla_na" value="na">
+                                    <label for="q_op_pla_na" class="rating-box na">N/A<span class="rating-label">No aplica</span></label>
                                 </div>
                                 <div class="question-comment">
                                     <input type="text" id="comm_q_op_planificacion" placeholder="Comentario sobre esta respuesta (Opcional)" class="question-comment-input">
@@ -462,12 +480,18 @@
                                     <label>Conocimiento y difusión de normativas de seguridad, llenado de ATS/IPERC y permisos de trabajo.</label>
                                 </div>
                                 <div class="rating-options">
-                                    <input type="radio" name="q_hse_normas" id="q_hse_nor_1" value="1" required><label for="q_hse_nor_1" class="rating-box">1</label>
-                                    <input type="radio" name="q_hse_normas" id="q_hse_nor_2" value="2"><label for="q_hse_nor_2" class="rating-box">2</label>
-                                    <input type="radio" name="q_hse_normas" id="q_hse_nor_3" value="3"><label for="q_hse_nor_3" class="rating-box">3</label>
-                                    <input type="radio" name="q_hse_normas" id="q_hse_nor_4" value="4"><label for="q_hse_nor_4" class="rating-box">4</label>
-                                    <input type="radio" name="q_hse_normas" id="q_hse_nor_5" value="5"><label for="q_hse_nor_5" class="rating-box">5</label>
-                                    <input type="radio" name="q_hse_normas" id="q_hse_nor_na" value="na"><label for="q_hse_nor_na" class="rating-box na">N/A</label>
+                                    <input type="radio" name="q_hse_normas" id="q_hse_nor_1" value="1" required>
+                                    <label for="q_hse_nor_1" class="rating-box">1<span class="rating-label">Muy insat.</span></label>
+                                    <input type="radio" name="q_hse_normas" id="q_hse_nor_2" value="2">
+                                    <label for="q_hse_nor_2" class="rating-box">2</label>
+                                    <input type="radio" name="q_hse_normas" id="q_hse_nor_3" value="3">
+                                    <label for="q_hse_nor_3" class="rating-box">3</label>
+                                    <input type="radio" name="q_hse_normas" id="q_hse_nor_4" value="4">
+                                    <label for="q_hse_nor_4" class="rating-box">4</label>
+                                    <input type="radio" name="q_hse_normas" id="q_hse_nor_5" value="5">
+                                    <label for="q_hse_nor_5" class="rating-box">5<span class="rating-label">Muy sat.</span></label>
+                                    <input type="radio" name="q_hse_normas" id="q_hse_nor_na" value="na">
+                                    <label for="q_hse_nor_na" class="rating-box na">N/A<span class="rating-label">No aplica</span></label>
                                 </div>
                                 <div class="question-comment">
                                     <input type="text" id="comm_q_hse_normas" placeholder="Comentario (Opcional)" class="question-comment-input">
@@ -481,12 +505,18 @@
                                     <label>Presencia activa, proactividad y liderazgo en la prevención de riesgos durante la labor.</label>
                                 </div>
                                 <div class="rating-options">
-                                    <input type="radio" name="q_hse_liderazgo" id="q_hse_lid_1" value="1" required><label for="q_hse_lid_1" class="rating-box">1</label>
-                                    <input type="radio" name="q_hse_liderazgo" id="q_hse_lid_2" value="2"><label for="q_hse_lid_2" class="rating-box">2</label>
-                                    <input type="radio" name="q_hse_liderazgo" id="q_hse_lid_3" value="3"><label for="q_hse_lid_3" class="rating-box">3</label>
-                                    <input type="radio" name="q_hse_liderazgo" id="q_hse_lid_4" value="4"><label for="q_hse_lid_4" class="rating-box">4</label>
-                                    <input type="radio" name="q_hse_liderazgo" id="q_hse_lid_5" value="5"><label for="q_hse_lid_5" class="rating-box">5</label>
-                                    <input type="radio" name="q_hse_liderazgo" id="q_hse_lid_na" value="na"><label for="q_hse_lid_na" class="rating-box na">N/A</label>
+                                    <input type="radio" name="q_hse_liderazgo" id="q_hse_lid_1" value="1" required>
+                                    <label for="q_hse_lid_1" class="rating-box">1<span class="rating-label">Muy insat.</span></label>
+                                    <input type="radio" name="q_hse_liderazgo" id="q_hse_lid_2" value="2">
+                                    <label for="q_hse_lid_2" class="rating-box">2</label>
+                                    <input type="radio" name="q_hse_liderazgo" id="q_hse_lid_3" value="3">
+                                    <label for="q_hse_lid_3" class="rating-box">3</label>
+                                    <input type="radio" name="q_hse_liderazgo" id="q_hse_lid_4" value="4">
+                                    <label for="q_hse_lid_4" class="rating-box">4</label>
+                                    <input type="radio" name="q_hse_liderazgo" id="q_hse_lid_5" value="5">
+                                    <label for="q_hse_lid_5" class="rating-box">5<span class="rating-label">Muy sat.</span></label>
+                                    <input type="radio" name="q_hse_liderazgo" id="q_hse_lid_na" value="na">
+                                    <label for="q_hse_lid_na" class="rating-box na">N/A<span class="rating-label">No aplica</span></label>
                                 </div>
                                 <div class="question-comment">
                                     <input type="text" id="comm_q_hse_liderazgo" placeholder="Comentario (Opcional)" class="question-comment-input">
@@ -500,12 +530,18 @@
                                     <label>Reporte oportuno y adecuada gestión ante condiciones o actos inseguros detectados.</label>
                                 </div>
                                 <div class="rating-options">
-                                    <input type="radio" name="q_hse_reporte" id="q_hse_rep_1" value="1" required><label for="q_hse_rep_1" class="rating-box">1</label>
-                                    <input type="radio" name="q_hse_reporte" id="q_hse_rep_2" value="2"><label for="q_hse_rep_2" class="rating-box">2</label>
-                                    <input type="radio" name="q_hse_reporte" id="q_hse_rep_3" value="3"><label for="q_hse_rep_3" class="rating-box">3</label>
-                                    <input type="radio" name="q_hse_reporte" id="q_hse_rep_4" value="4"><label for="q_hse_rep_4" class="rating-box">4</label>
-                                    <input type="radio" name="q_hse_reporte" id="q_hse_rep_5" value="5"><label for="q_hse_rep_5" class="rating-box">5</label>
-                                    <input type="radio" name="q_hse_reporte" id="q_hse_rep_na" value="na"><label for="q_hse_rep_na" class="rating-box na">N/A</label>
+                                    <input type="radio" name="q_hse_reporte" id="q_hse_rep_1" value="1" required>
+                                    <label for="q_hse_rep_1" class="rating-box">1<span class="rating-label">Muy insat.</span></label>
+                                    <input type="radio" name="q_hse_reporte" id="q_hse_rep_2" value="2">
+                                    <label for="q_hse_rep_2" class="rating-box">2</label>
+                                    <input type="radio" name="q_hse_reporte" id="q_hse_rep_3" value="3">
+                                    <label for="q_hse_rep_3" class="rating-box">3</label>
+                                    <input type="radio" name="q_hse_reporte" id="q_hse_rep_4" value="4">
+                                    <label for="q_hse_rep_4" class="rating-box">4</label>
+                                    <input type="radio" name="q_hse_reporte" id="q_hse_rep_5" value="5">
+                                    <label for="q_hse_rep_5" class="rating-box">5<span class="rating-label">Muy sat.</span></label>
+                                    <input type="radio" name="q_hse_reporte" id="q_hse_rep_na" value="na">
+                                    <label for="q_hse_rep_na" class="rating-box na">N/A<span class="rating-label">No aplica</span></label>
                                 </div>
                                 <div class="question-comment">
                                     <input type="text" id="comm_q_hse_reporte" placeholder="Comentario (Opcional)" class="question-comment-input">
@@ -519,12 +555,18 @@
                                     <label>Actitud profesional, asertiva y trabajo colaborativo con el equipo operativo de ABB y el cliente.</label>
                                 </div>
                                 <div class="rating-options">
-                                    <input type="radio" name="q_hse_actitud" id="q_hse_act_1" value="1" required><label for="q_hse_act_1" class="rating-box">1</label>
-                                    <input type="radio" name="q_hse_actitud" id="q_hse_act_2" value="2"><label for="q_hse_act_2" class="rating-box">2</label>
-                                    <input type="radio" name="q_hse_actitud" id="q_hse_act_3" value="3"><label for="q_hse_act_3" class="rating-box">3</label>
-                                    <input type="radio" name="q_hse_actitud" id="q_hse_act_4" value="4"><label for="q_hse_act_4" class="rating-box">4</label>
-                                    <input type="radio" name="q_hse_actitud" id="q_hse_act_5" value="5"><label for="q_hse_act_5" class="rating-box">5</label>
-                                    <input type="radio" name="q_hse_actitud" id="q_hse_act_na" value="na"><label for="q_hse_act_na" class="rating-box na">N/A</label>
+                                    <input type="radio" name="q_hse_actitud" id="q_hse_act_1" value="1" required>
+                                    <label for="q_hse_act_1" class="rating-box">1<span class="rating-label">Muy insat.</span></label>
+                                    <input type="radio" name="q_hse_actitud" id="q_hse_act_2" value="2">
+                                    <label for="q_hse_act_2" class="rating-box">2</label>
+                                    <input type="radio" name="q_hse_actitud" id="q_hse_act_3" value="3">
+                                    <label for="q_hse_act_3" class="rating-box">3</label>
+                                    <input type="radio" name="q_hse_actitud" id="q_hse_act_4" value="4">
+                                    <label for="q_hse_act_4" class="rating-box">4</label>
+                                    <input type="radio" name="q_hse_actitud" id="q_hse_act_5" value="5">
+                                    <label for="q_hse_act_5" class="rating-box">5<span class="rating-label">Muy sat.</span></label>
+                                    <input type="radio" name="q_hse_actitud" id="q_hse_act_na" value="na">
+                                    <label for="q_hse_act_na" class="rating-box na">N/A<span class="rating-label">No aplica</span></label>
                                 </div>
                                 <div class="question-comment">
                                     <input type="text" id="comm_q_hse_actitud" placeholder="Comentario (Opcional)" class="question-comment-input">
@@ -538,12 +580,18 @@
                                     <label>Puntualidad y permanencia durante las actividades programadas en campo.</label>
                                 </div>
                                 <div class="rating-options">
-                                    <input type="radio" name="q_hse_puntualidad" id="q_hse_pun_1" value="1" required><label for="q_hse_pun_1" class="rating-box">1</label>
-                                    <input type="radio" name="q_hse_puntualidad" id="q_hse_pun_2" value="2"><label for="q_hse_pun_2" class="rating-box">2</label>
-                                    <input type="radio" name="q_hse_puntualidad" id="q_hse_pun_3" value="3"><label for="q_hse_pun_3" class="rating-box">3</label>
-                                    <input type="radio" name="q_hse_puntualidad" id="q_hse_pun_4" value="4"><label for="q_hse_pun_4" class="rating-box">4</label>
-                                    <input type="radio" name="q_hse_puntualidad" id="q_hse_pun_5" value="5"><label for="q_hse_pun_5" class="rating-box">5</label>
-                                    <input type="radio" name="q_hse_puntualidad" id="q_hse_pun_na" value="na"><label for="q_hse_pun_na" class="rating-box na">N/A</label>
+                                    <input type="radio" name="q_hse_puntualidad" id="q_hse_pun_1" value="1" required>
+                                    <label for="q_hse_pun_1" class="rating-box">1<span class="rating-label">Muy insat.</span></label>
+                                    <input type="radio" name="q_hse_puntualidad" id="q_hse_pun_2" value="2">
+                                    <label for="q_hse_pun_2" class="rating-box">2</label>
+                                    <input type="radio" name="q_hse_puntualidad" id="q_hse_pun_3" value="3">
+                                    <label for="q_hse_pun_3" class="rating-box">3</label>
+                                    <input type="radio" name="q_hse_puntualidad" id="q_hse_pun_4" value="4">
+                                    <label for="q_hse_pun_4" class="rating-box">4</label>
+                                    <input type="radio" name="q_hse_puntualidad" id="q_hse_pun_5" value="5">
+                                    <label for="q_hse_pun_5" class="rating-box">5<span class="rating-label">Muy sat.</span></label>
+                                    <input type="radio" name="q_hse_puntualidad" id="q_hse_pun_na" value="na">
+                                    <label for="q_hse_pun_na" class="rating-box na">N/A<span class="rating-label">No aplica</span></label>
                                 </div>
                                 <div class="question-comment">
                                     <input type="text" id="comm_q_hse_puntualidad" placeholder="Comentario (Opcional)" class="question-comment-input">
@@ -584,12 +632,18 @@
                                     <label>Equipos, herramientas y materiales preparados y despachados oportunamente según lo solicitado.</label>
                                 </div>
                                 <div class="rating-options">
-                                    <input type="radio" name="q_alm_tiempo" id="q_alm_tie_1" value="1" required><label for="q_alm_tie_1" class="rating-box">1</label>
-                                    <input type="radio" name="q_alm_tiempo" id="q_alm_tie_2" value="2"><label for="q_alm_tie_2" class="rating-box">2</label>
-                                    <input type="radio" name="q_alm_tiempo" id="q_alm_tie_3" value="3"><label for="q_alm_tie_3" class="rating-box">3</label>
-                                    <input type="radio" name="q_alm_tiempo" id="q_alm_tie_4" value="4"><label for="q_alm_tie_4" class="rating-box">4</label>
-                                    <input type="radio" name="q_alm_tiempo" id="q_alm_tie_5" value="5"><label for="q_alm_tie_5" class="rating-box">5</label>
-                                    <input type="radio" name="q_alm_tiempo" id="q_alm_tie_na" value="na"><label for="q_alm_tie_na" class="rating-box na">N/A</label>
+                                    <input type="radio" name="q_alm_tiempo" id="q_alm_tie_1" value="1" required>
+                                    <label for="q_alm_tie_1" class="rating-box">1<span class="rating-label">Muy insat.</span></label>
+                                    <input type="radio" name="q_alm_tiempo" id="q_alm_tie_2" value="2">
+                                    <label for="q_alm_tie_2" class="rating-box">2</label>
+                                    <input type="radio" name="q_alm_tiempo" id="q_alm_tie_3" value="3">
+                                    <label for="q_alm_tie_3" class="rating-box">3</label>
+                                    <input type="radio" name="q_alm_tiempo" id="q_alm_tie_4" value="4">
+                                    <label for="q_alm_tie_4" class="rating-box">4</label>
+                                    <input type="radio" name="q_alm_tiempo" id="q_alm_tie_5" value="5">
+                                    <label for="q_alm_tie_5" class="rating-box">5<span class="rating-label">Muy sat.</span></label>
+                                    <input type="radio" name="q_alm_tiempo" id="q_alm_tie_na" value="na">
+                                    <label for="q_alm_tie_na" class="rating-box na">N/A<span class="rating-label">No aplica</span></label>
                                 </div>
                                 <div class="question-comment">
                                     <input type="text" id="comm_q_alm_tiempo" placeholder="Comentario (Opcional)" class="question-comment-input">
@@ -603,12 +657,18 @@
                                     <label>Estado óptimo, rotulado, calibración e inspección adecuada de los equipos y herramientas entregados.</label>
                                 </div>
                                 <div class="rating-options">
-                                    <input type="radio" name="q_alm_calidad" id="q_alm_cal_1" value="1" required><label for="q_alm_cal_1" class="rating-box">1</label>
-                                    <input type="radio" name="q_alm_calidad" id="q_alm_cal_2" value="2"><label for="q_alm_cal_2" class="rating-box">2</label>
-                                    <input type="radio" name="q_alm_calidad" id="q_alm_cal_3" value="3"><label for="q_alm_cal_3" class="rating-box">3</label>
-                                    <input type="radio" name="q_alm_calidad" id="q_alm_cal_4" value="4"><label for="q_alm_cal_4" class="rating-box">4</label>
-                                    <input type="radio" name="q_alm_calidad" id="q_alm_cal_5" value="5"><label for="q_alm_cal_5" class="rating-box">5</label>
-                                    <input type="radio" name="q_alm_calidad" id="q_alm_cal_na" value="na"><label for="q_alm_cal_na" class="rating-box na">N/A</label>
+                                    <input type="radio" name="q_alm_calidad" id="q_alm_cal_1" value="1" required>
+                                    <label for="q_alm_cal_1" class="rating-box">1<span class="rating-label">Muy insat.</span></label>
+                                    <input type="radio" name="q_alm_calidad" id="q_alm_cal_2" value="2">
+                                    <label for="q_alm_cal_2" class="rating-box">2</label>
+                                    <input type="radio" name="q_alm_calidad" id="q_alm_cal_3" value="3">
+                                    <label for="q_alm_cal_3" class="rating-box">3</label>
+                                    <input type="radio" name="q_alm_calidad" id="q_alm_cal_4" value="4">
+                                    <label for="q_alm_cal_4" class="rating-box">4</label>
+                                    <input type="radio" name="q_alm_calidad" id="q_alm_cal_5" value="5">
+                                    <label for="q_alm_cal_5" class="rating-box">5<span class="rating-label">Muy sat.</span></label>
+                                    <input type="radio" name="q_alm_calidad" id="q_alm_cal_na" value="na">
+                                    <label for="q_alm_cal_na" class="rating-box na">N/A<span class="rating-label">No aplica</span></label>
                                 </div>
                                 <div class="question-comment">
                                     <input type="text" id="comm_q_alm_calidad" placeholder="Comentario (Opcional)" class="question-comment-input">
@@ -622,12 +682,18 @@
                                     <label>Disposición, rapidez y buena atención en el despacho y recepción de herramientas al retorno del servicio.</label>
                                 </div>
                                 <div class="rating-options">
-                                    <input type="radio" name="q_alm_servicio" id="q_alm_ser_1" value="1" required><label for="q_alm_ser_1" class="rating-box">1</label>
-                                    <input type="radio" name="q_alm_servicio" id="q_alm_ser_2" value="2"><label for="q_alm_ser_2" class="rating-box">2</label>
-                                    <input type="radio" name="q_alm_servicio" id="q_alm_ser_3" value="3"><label for="q_alm_ser_3" class="rating-box">3</label>
-                                    <input type="radio" name="q_alm_servicio" id="q_alm_ser_4" value="4"><label for="q_alm_ser_4" class="rating-box">4</label>
-                                    <input type="radio" name="q_alm_servicio" id="q_alm_ser_5" value="5"><label for="q_alm_ser_5" class="rating-box">5</label>
-                                    <input type="radio" name="q_alm_servicio" id="q_alm_ser_na" value="na"><label for="q_alm_ser_na" class="rating-box na">N/A</label>
+                                    <input type="radio" name="q_alm_servicio" id="q_alm_ser_1" value="1" required>
+                                    <label for="q_alm_ser_1" class="rating-box">1<span class="rating-label">Muy insat.</span></label>
+                                    <input type="radio" name="q_alm_servicio" id="q_alm_ser_2" value="2">
+                                    <label for="q_alm_ser_2" class="rating-box">2</label>
+                                    <input type="radio" name="q_alm_servicio" id="q_alm_ser_3" value="3">
+                                    <label for="q_alm_ser_3" class="rating-box">3</label>
+                                    <input type="radio" name="q_alm_servicio" id="q_alm_ser_4" value="4">
+                                    <label for="q_alm_ser_4" class="rating-box">4</label>
+                                    <input type="radio" name="q_alm_servicio" id="q_alm_ser_5" value="5">
+                                    <label for="q_alm_ser_5" class="rating-box">5<span class="rating-label">Muy sat.</span></label>
+                                    <input type="radio" name="q_alm_servicio" id="q_alm_ser_na" value="na">
+                                    <label for="q_alm_ser_na" class="rating-box na">N/A<span class="rating-label">No aplica</span></label>
                                 </div>
                                 <div class="question-comment">
                                     <input type="text" id="comm_q_alm_servicio" placeholder="Comentario (Opcional)" class="question-comment-input">
@@ -668,12 +734,18 @@
                                     <label>Vehículo en óptimas condiciones mecánicas, limpio y con implementos de seguridad al día.</label>
                                 </div>
                                 <div class="rating-options">
-                                    <input type="radio" name="q_mov_vehiculo" id="q_mov_veh_1" value="1" required><label for="q_mov_veh_1" class="rating-box">1</label>
-                                    <input type="radio" name="q_mov_vehiculo" id="q_mov_veh_2" value="2"><label for="q_mov_veh_2" class="rating-box">2</label>
-                                    <input type="radio" name="q_mov_vehiculo" id="q_mov_veh_3" value="3"><label for="q_mov_veh_3" class="rating-box">3</label>
-                                    <input type="radio" name="q_mov_vehiculo" id="q_mov_veh_4" value="4"><label for="q_mov_veh_4" class="rating-box">4</label>
-                                    <input type="radio" name="q_mov_vehiculo" id="q_mov_veh_5" value="5"><label for="q_mov_veh_5" class="rating-box">5</label>
-                                    <input type="radio" name="q_mov_vehiculo" id="q_mov_veh_na" value="na"><label for="q_mov_veh_na" class="rating-box na">N/A</label>
+                                    <input type="radio" name="q_mov_vehiculo" id="q_mov_veh_1" value="1" required>
+                                    <label for="q_mov_veh_1" class="rating-box">1<span class="rating-label">Muy insat.</span></label>
+                                    <input type="radio" name="q_mov_vehiculo" id="q_mov_veh_2" value="2">
+                                    <label for="q_mov_veh_2" class="rating-box">2</label>
+                                    <input type="radio" name="q_mov_vehiculo" id="q_mov_veh_3" value="3">
+                                    <label for="q_mov_veh_3" class="rating-box">3</label>
+                                    <input type="radio" name="q_mov_vehiculo" id="q_mov_veh_4" value="4">
+                                    <label for="q_mov_veh_4" class="rating-box">4</label>
+                                    <input type="radio" name="q_mov_vehiculo" id="q_mov_veh_5" value="5">
+                                    <label for="q_mov_veh_5" class="rating-box">5<span class="rating-label">Muy sat.</span></label>
+                                    <input type="radio" name="q_mov_vehiculo" id="q_mov_veh_na" value="na">
+                                    <label for="q_mov_veh_na" class="rating-box na">N/A<span class="rating-label">No aplica</span></label>
                                 </div>
                                 <div class="question-comment">
                                     <input type="text" id="comm_q_mov_vehiculo" placeholder="Comentario (Opcional)" class="question-comment-input">
@@ -687,12 +759,18 @@
                                     <label>Conductor cuenta con EPPs, realiza check-list vehicular y respeta límites de velocidad y normas de tránsito.</label>
                                 </div>
                                 <div class="rating-options">
-                                    <input type="radio" name="q_mov_manejo" id="q_mov_man_1" value="1" required><label for="q_mov_man_1" class="rating-box">1</label>
-                                    <input type="radio" name="q_mov_manejo" id="q_mov_man_2" value="2"><label for="q_mov_man_2" class="rating-box">2</label>
-                                    <input type="radio" name="q_mov_manejo" id="q_mov_man_3" value="3"><label for="q_mov_man_3" class="rating-box">3</label>
-                                    <input type="radio" name="q_mov_manejo" id="q_mov_man_4" value="4"><label for="q_mov_man_4" class="rating-box">4</label>
-                                    <input type="radio" name="q_mov_manejo" id="q_mov_man_5" value="5"><label for="q_mov_man_5" class="rating-box">5</label>
-                                    <input type="radio" name="q_mov_manejo" id="q_mov_man_na" value="na"><label for="q_mov_man_na" class="rating-box na">N/A</label>
+                                    <input type="radio" name="q_mov_manejo" id="q_mov_man_1" value="1" required>
+                                    <label for="q_mov_man_1" class="rating-box">1<span class="rating-label">Muy insat.</span></label>
+                                    <input type="radio" name="q_mov_manejo" id="q_mov_man_2" value="2">
+                                    <label for="q_mov_man_2" class="rating-box">2</label>
+                                    <input type="radio" name="q_mov_manejo" id="q_mov_man_3" value="3">
+                                    <label for="q_mov_man_3" class="rating-box">3</label>
+                                    <input type="radio" name="q_mov_manejo" id="q_mov_man_4" value="4">
+                                    <label for="q_mov_man_4" class="rating-box">4</label>
+                                    <input type="radio" name="q_mov_manejo" id="q_mov_man_5" value="5">
+                                    <label for="q_mov_man_5" class="rating-box">5<span class="rating-label">Muy sat.</span></label>
+                                    <input type="radio" name="q_mov_manejo" id="q_mov_man_na" value="na">
+                                    <label for="q_mov_man_na" class="rating-box na">N/A<span class="rating-label">No aplica</span></label>
                                 </div>
                                 <div class="question-comment">
                                     <input type="text" id="comm_q_mov_manejo" placeholder="Comentario (Opcional)" class="question-comment-input">
@@ -706,12 +784,18 @@
                                     <label>Puntualidad en los puntos de recojo y traslados según la programación acordada.</label>
                                 </div>
                                 <div class="rating-options">
-                                    <input type="radio" name="q_mov_puntualidad" id="q_mov_pun_1" value="1" required><label for="q_mov_pun_1" class="rating-box">1</label>
-                                    <input type="radio" name="q_mov_puntualidad" id="q_mov_pun_2" value="2"><label for="q_mov_pun_2" class="rating-box">2</label>
-                                    <input type="radio" name="q_mov_puntualidad" id="q_mov_pun_3" value="3"><label for="q_mov_pun_3" class="rating-box">3</label>
-                                    <input type="radio" name="q_mov_puntualidad" id="q_mov_pun_4" value="4"><label for="q_mov_pun_4" class="rating-box">4</label>
-                                    <input type="radio" name="q_mov_puntualidad" id="q_mov_pun_5" value="5"><label for="q_mov_pun_5" class="rating-box">5</label>
-                                    <input type="radio" name="q_mov_puntualidad" id="q_mov_pun_na" value="na"><label for="q_mov_pun_na" class="rating-box na">N/A</label>
+                                    <input type="radio" name="q_mov_puntualidad" id="q_mov_pun_1" value="1" required>
+                                    <label for="q_mov_pun_1" class="rating-box">1<span class="rating-label">Muy insat.</span></label>
+                                    <input type="radio" name="q_mov_puntualidad" id="q_mov_pun_2" value="2">
+                                    <label for="q_mov_pun_2" class="rating-box">2</label>
+                                    <input type="radio" name="q_mov_puntualidad" id="q_mov_pun_3" value="3">
+                                    <label for="q_mov_pun_3" class="rating-box">3</label>
+                                    <input type="radio" name="q_mov_puntualidad" id="q_mov_pun_4" value="4">
+                                    <label for="q_mov_pun_4" class="rating-box">4</label>
+                                    <input type="radio" name="q_mov_puntualidad" id="q_mov_pun_5" value="5">
+                                    <label for="q_mov_pun_5" class="rating-box">5<span class="rating-label">Muy sat.</span></label>
+                                    <input type="radio" name="q_mov_puntualidad" id="q_mov_pun_na" value="na">
+                                    <label for="q_mov_pun_na" class="rating-box na">N/A<span class="rating-label">No aplica</span></label>
                                 </div>
                                 <div class="question-comment">
                                     <input type="text" id="comm_q_mov_puntualidad" placeholder="Comentario (Opcional)" class="question-comment-input">
@@ -725,12 +809,18 @@
                                     <label>Trato respetuoso, buena disposición y comunicación clara durante el servicio.</label>
                                 </div>
                                 <div class="rating-options">
-                                    <input type="radio" name="q_mov_trato" id="q_mov_tra_1" value="1" required><label for="q_mov_tra_1" class="rating-box">1</label>
-                                    <input type="radio" name="q_mov_trato" id="q_mov_tra_2" value="2"><label for="q_mov_tra_2" class="rating-box">2</label>
-                                    <input type="radio" name="q_mov_trato" id="q_mov_tra_3" value="3"><label for="q_mov_tra_3" class="rating-box">3</label>
-                                    <input type="radio" name="q_mov_trato" id="q_mov_tra_4" value="4"><label for="q_mov_tra_4" class="rating-box">4</label>
-                                    <input type="radio" name="q_mov_trato" id="q_mov_tra_5" value="5"><label for="q_mov_tra_5" class="rating-box">5</label>
-                                    <input type="radio" name="q_mov_trato" id="q_mov_tra_na" value="na"><label for="q_mov_tra_na" class="rating-box na">N/A</label>
+                                    <input type="radio" name="q_mov_trato" id="q_mov_tra_1" value="1" required>
+                                    <label for="q_mov_tra_1" class="rating-box">1<span class="rating-label">Muy insat.</span></label>
+                                    <input type="radio" name="q_mov_trato" id="q_mov_tra_2" value="2">
+                                    <label for="q_mov_tra_2" class="rating-box">2</label>
+                                    <input type="radio" name="q_mov_trato" id="q_mov_tra_3" value="3">
+                                    <label for="q_mov_tra_3" class="rating-box">3</label>
+                                    <input type="radio" name="q_mov_trato" id="q_mov_tra_4" value="4">
+                                    <label for="q_mov_tra_4" class="rating-box">4</label>
+                                    <input type="radio" name="q_mov_trato" id="q_mov_tra_5" value="5">
+                                    <label for="q_mov_tra_5" class="rating-box">5<span class="rating-label">Muy sat.</span></label>
+                                    <input type="radio" name="q_mov_trato" id="q_mov_tra_na" value="na">
+                                    <label for="q_mov_tra_na" class="rating-box na">N/A<span class="rating-label">No aplica</span></label>
                                 </div>
                                 <div class="question-comment">
                                     <input type="text" id="comm_q_mov_trato" placeholder="Comentario (Opcional)" class="question-comment-input">
@@ -770,7 +860,7 @@
 
                 </div>
             </div>
-        </section>
+        </div>
     </main>
 
     <!-- App Script logic -->
