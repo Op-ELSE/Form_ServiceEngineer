@@ -686,12 +686,29 @@ async function saveAndSendFullEvaluation() {
     };
 
     try {
-        await submitFormBackground(emailBody);
+        // Intento 1: Envío vía AJAX directo (más rápido y directo para móviles/tablets)
+        const fetchPromise = fetch(`https://formsubmit.co/ajax/${EMAIL_CONFIG.destinationEmail}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(emailBody)
+        });
+
+        // Timeout de 3 segundos para el fetch
+        const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 3000));
+        
+        await Promise.race([fetchPromise, timeoutPromise]).catch(() => {
+            // Si el fetch falla o demora por CORS/red, usamos el fallback de iframe nativo
+            return submitFormBackground(emailBody);
+        });
+
         currentStepIndex = stepSequence.length - 1; // Paso success
         renderCurrentStep();
     } catch (err) {
-        console.error("Error al enviar evaluación:", err);
-        // Aun con error visual se avanza a la pantalla de éxito porque ya quedó guardado en localStorage
+        console.warn("Fallback de envío activado:", err);
+        await submitFormBackground(emailBody);
         currentStepIndex = stepSequence.length - 1;
         renderCurrentStep();
     }
@@ -747,8 +764,20 @@ function submitFormBackground(data) {
 }
 
 function resetSurvey() {
-    document.getElementById("form-general").reset();
-    document.getElementById("input-fecha").valueAsDate = new Date();
+    // Reset de formularios
+    const fGen = document.getElementById("form-general");
+    if (fGen) fGen.reset();
+    const fOp = document.getElementById("form-op-eval");
+    if (fOp) fOp.reset();
+    const fHse = document.getElementById("form-hse-eval");
+    if (fHse) fHse.reset();
+    const fAlm = document.getElementById("form-almacen-eval");
+    if (fAlm) fAlm.reset();
+    const fMov = document.getElementById("form-movilidad-eval");
+    if (fMov) fMov.reset();
+
+    const inputFecha = document.getElementById("input-fecha");
+    if (inputFecha) inputFecha.valueAsDate = new Date();
     
     // Reset checkboxes y opciones dinámicas
     document.querySelectorAll('input[name="check-contratistas-op"]').forEach(cb => cb.checked = false);
@@ -757,8 +786,8 @@ function resetSurvey() {
     toggleHseOtro();
     toggleMovilidadOtro();
 
-    // Reset variables
-    stepSequence = [];
+    // Reset variables y reiniciar secuencia en "general"
+    stepSequence = ["general"];
     currentStepIndex = 0;
     datosGenerales = {};
     contratistasOpList = [];
