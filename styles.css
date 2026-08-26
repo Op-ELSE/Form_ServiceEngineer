@@ -79,12 +79,12 @@ input, select, textarea, button {
     gap: 16px;
 }
 
-.abb-logo-svg {
+.abb-logo {
     height: 38px;
     width: auto;
-    border-radius: var(--border-radius-sm);
-    box-shadow: 0 2px 8px rgba(255, 0, 15, 0.25);
+    object-fit: contain;
     flex-shrink: 0;
+    display: block;
 }
 
 .brand-divider {
