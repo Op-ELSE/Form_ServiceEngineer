@@ -2,7 +2,7 @@
 // CONFIGURACIÓN DE ENVÍO - GOOGLE APPS SCRIPT (100% LIBRE DE BLOQUEOS ABB)
 // ==========================================================================
 // Pega aquí la URL de la aplicación web que generas en Google Apps Script:
-const GOOGLE_SCRIPT_URL = "PEGAR_AQUI_TU_URL_DE_GOOGLE_APPS_SCRIPT";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw_WCZmHoXq0Cio-0aRSDb1CdoXxYpFpoIdTQejb_1STXyVtfe0gVs0pOo3kmXinhk9/exec";
 
 // Correo donde recibirás las evaluaciones de los supervisores:
 const DESTINATION_EMAIL = "geraldine.garcia-alarcon@pe.abb.com";
