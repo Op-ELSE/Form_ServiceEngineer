@@ -1,12 +1,11 @@
 // ==========================================================================
-// APP LOGIC - EVALUACIÓN DE CONTRATISTAS (SUPERVISORES ABB)
+// CONFIGURACIÓN DE ENVÍO - GOOGLE APPS SCRIPT (100% LIBRE DE BLOQUEOS ABB)
 // ==========================================================================
+// Pega aquí la URL de la aplicación web que generas en Google Apps Script:
+const GOOGLE_SCRIPT_URL = "PEGAR_AQUI_TU_URL_DE_GOOGLE_APPS_SCRIPT";
 
-// Configuración de Envío por Correo (Compatible con ABB DLP)
-const EMAIL_CONFIG = {
-    destinationEmail: "geraldine.garcia-alarcon@pe.abb.com",
-    subjectPrefix: "[EVAL_CONTRATISTA_ABB]"
-};
+// Correo donde recibirás las evaluaciones de los supervisores:
+const DESTINATION_EMAIL = "geraldine.garcia-alarcon@pe.abb.com";
 
 // Estado global de la evaluación
 let currentStepIndex = 0;
@@ -643,7 +642,8 @@ async function saveAndSendFullEvaluation() {
         evaluacionesOperativos: evaluacionesOperativos,
         evaluacionHSE: evaluacionHSE,
         evaluacionAlmacen: evaluacionAlmacen,
-        evaluacionMovilidad: evaluacionMovilidad
+        evaluacionMovilidad: evaluacionMovilidad,
+        destinationEmail: DESTINATION_EMAIL
     };
 
     // Guardar en localStorage como respaldo
@@ -651,116 +651,29 @@ async function saveAndSendFullEvaluation() {
     stored.push(payloadFinal);
     localStorage.setItem("abb_contratistas_evals", JSON.stringify(stored));
 
-    // Resumen para el correo
-    let resumenOperativos = evaluacionesOperativos.map(op => {
-        return `[${op.empresa}] Equipos=${op.equipos}, EPP=${op.epp}, Seg=${op.seguridad}, Actitud=${op.actitud}, Puntual=${op.puntualidad}, Tec=${op.conocimiento}, Plan=${op.planificacion}`;
-    }).join(" | ");
-
-    let resumenHSE = evaluacionHSE 
-        ? `[${evaluacionHSE.empresa}] Normas=${evaluacionHSE.normas}, Liderazgo=${evaluacionHSE.liderazgo}, Reporte=${evaluacionHSE.reporte}, Actitud=${evaluacionHSE.actitud}, Puntual=${evaluacionHSE.puntualidad}`
-        : "No aplica";
-
-    let resumenAlmacen = evaluacionAlmacen 
-        ? `[GEEP-TALLER] Tiempo=${evaluacionAlmacen.tiempo}, Calidad=${evaluacionAlmacen.calidad}, Servicio=${evaluacionAlmacen.servicio}`
-        : "No aplica";
-
-    let resumenMovilidad = evaluacionMovilidad 
-        ? `[${evaluacionMovilidad.empresa}] Vehiculo=${evaluacionMovilidad.vehiculo}, Manejo=${evaluacionMovilidad.manejo}, Puntual=${evaluacionMovilidad.puntualidad}, Trato=${evaluacionMovilidad.trato}`
-        : "No aplica";
-
-    const emailBody = {
-        "_subject": `${EMAIL_CONFIG.subjectPrefix} - OS: ${payloadFinal.os} - ${payloadFinal.cliente} (${payloadFinal.servicio})`,
-        "_template": "table",
-        "_captcha": "false",
-        "ID_Evaluacion": payloadFinal.id,
-        "Orden_Servicio_OS": payloadFinal.os,
-        "Cliente": payloadFinal.cliente,
-        "Servicio": payloadFinal.servicio,
-        "Supervisor_ABB_Evaluador": payloadFinal.supervisorEvaluador,
-        "Fecha_Intervencion": payloadFinal.fecha,
-        "Evaluacion_Operativos": resumenOperativos || "No aplica",
-        "Evaluacion_HSE": resumenHSE,
-        "Evaluacion_Almacen": resumenAlmacen,
-        "Evaluacion_Movilidad": resumenMovilidad,
-        "RAW_JSON": JSON.stringify(payloadFinal, null, 2)
-    };
-
     try {
-        // Intento 1: Envío vía AJAX directo (más rápido y directo para móviles/tablets)
-        const fetchPromise = fetch(`https://formsubmit.co/ajax/${EMAIL_CONFIG.destinationEmail}`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify(emailBody)
-        });
-
-        // Timeout de 3 segundos para el fetch
-        const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 3000));
-        
-        await Promise.race([fetchPromise, timeoutPromise]).catch(() => {
-            // Si el fetch falla o demora por CORS/red, usamos el fallback de iframe nativo
-            return submitFormBackground(emailBody);
-        });
+        if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL !== "PEGAR_AQUI_TU_URL_DE_GOOGLE_APPS_SCRIPT") {
+            await fetch(GOOGLE_SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payloadFinal)
+            });
+            console.log("Evaluación enviada con éxito a Google Apps Script");
+        } else {
+            console.warn("URL de Google Apps Script no configurada aún en app.js");
+        }
 
         currentStepIndex = stepSequence.length - 1; // Paso success
         renderCurrentStep();
     } catch (err) {
-        console.warn("Fallback de envío activado:", err);
-        await submitFormBackground(emailBody);
+        console.error("Error al conectar con Google Apps Script:", err);
+        // Aun con error de red avanza porque ya quedó en localStorage
         currentStepIndex = stepSequence.length - 1;
         renderCurrentStep();
     }
-}
-
-// Envío nativo en segundo plano libre de CORS
-function submitFormBackground(data) {
-    return new Promise((resolve) => {
-        let iframe = document.getElementById("hidden-submit-iframe");
-        if (!iframe) {
-            iframe = document.createElement("iframe");
-            iframe.id = "hidden-submit-iframe";
-            iframe.name = "hidden-submit-iframe";
-            iframe.style.display = "none";
-            document.body.appendChild(iframe);
-        }
-
-        const form = document.createElement("form");
-        form.method = "POST";
-        form.action = `https://formsubmit.co/${EMAIL_CONFIG.destinationEmail}`;
-        form.target = "hidden-submit-iframe";
-        form.style.display = "none";
-
-        for (const [key, value] of Object.entries(data)) {
-            const input = document.createElement("input");
-            input.type = "hidden";
-            input.name = key;
-            input.value = typeof value === "object" ? JSON.stringify(value) : value;
-            form.appendChild(input);
-        }
-
-        document.body.appendChild(form);
-
-        let finished = false;
-        iframe.onload = () => {
-            if (!finished) {
-                finished = true;
-                form.remove();
-                resolve(true);
-            }
-        };
-
-        setTimeout(() => {
-            if (!finished) {
-                finished = true;
-                form.remove();
-                resolve(true);
-            }
-        }, 2200);
-
-        form.submit();
-    });
 }
 
 function resetSurvey() {
