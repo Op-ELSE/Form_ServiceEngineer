@@ -232,8 +232,121 @@ function loadQueryParams() {
 }
 
 // ==========================================================================
-// CONTROLADORES DE CAMPOS "OTRO"
+// VALIDACIÓN DE FORMULARIOS DE EVALUACIÓN
 // ==========================================================================
+const COMMENT_REQUIRED_THRESHOLD = 3; // Comentario obligatorio si puntaje ≤ este valor
+
+/**
+ * Valida todas las preguntas de un formulario de evaluación.
+ * Muestra ícono ❗ en tarjetas incompletas y marca comentarios obligatorios.
+ * Retorna true si todo está correcto, false si hay errores.
+ */
+function validateEvalForm(radioNames, commentIds) {
+    let isValid = true;
+
+    radioNames.forEach((radioName, i) => {
+        const commentId = commentIds[i];
+        const card = document.getElementById(commentId)?.closest(".question-card");
+        const commentInput = document.getElementById(commentId);
+
+        // Limpiar estado previo
+        if (card) {
+            card.classList.remove("field-error");
+            const oldBadge = card.querySelector(".field-error-badge");
+            if (oldBadge) oldBadge.remove();
+        }
+        if (commentInput) {
+            commentInput.classList.remove("comment-required");
+            const oldLabel = commentInput.parentElement.querySelector(".comment-required-label");
+            if (oldLabel) oldLabel.remove();
+        }
+
+        const val = getRadioVal(radioName);
+
+        // 1. Validar que se seleccionó un puntaje
+        if (!val) {
+            isValid = false;
+            if (card) {
+                card.classList.add("field-error");
+                const badge = document.createElement("span");
+                badge.className = "field-error-badge";
+                badge.innerHTML = "❗ Campo obligatorio";
+                card.querySelector(".rating-options").after(badge);
+            }
+            return; // siguiente pregunta
+        }
+
+        // 2. Si puntaje ≤ umbral, comentario es obligatorio
+        const numVal = parseInt(val, 10);
+        if (!isNaN(numVal) && numVal <= COMMENT_REQUIRED_THRESHOLD) {
+            const commentVal = commentInput ? commentInput.value.trim() : "";
+            if (!commentVal) {
+                isValid = false;
+                if (commentInput) {
+                    commentInput.classList.add("comment-required");
+                    commentInput.placeholder = "❗ Comentario obligatorio para puntaje ≤ " + COMMENT_REQUIRED_THRESHOLD;
+                    const label = document.createElement("span");
+                    label.className = "comment-required-label";
+                    label.textContent = "⚠️ Debes justificar este puntaje con un comentario";
+                    commentInput.after(label);
+                }
+                if (card) {
+                    card.classList.add("field-error");
+                }
+            }
+        }
+    });
+
+    // Scroll a primer error
+    if (!isValid) {
+        const firstError = document.querySelector(".question-card.field-error");
+        if (firstError) firstError.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    return isValid;
+}
+
+/**
+ * Escucha cambios en radios para actualizar en tiempo real el estado
+ * del comentario (mostrar/ocultar obligatoriedad).
+ */
+function attachRatingListeners(radioName, commentId) {
+    const radios = document.getElementsByName(radioName);
+    const commentInput = document.getElementById(commentId);
+    const card = commentInput?.closest(".question-card");
+
+    radios.forEach(r => {
+        r.addEventListener("change", () => {
+            const val = parseInt(r.value, 10);
+
+            // Limpiar errores previos de esta tarjeta
+            if (card) card.classList.remove("field-error");
+            const oldBadge = card?.querySelector(".field-error-badge");
+            if (oldBadge) oldBadge.remove();
+
+            if (commentInput) {
+                commentInput.classList.remove("comment-required");
+                const oldLabel = commentInput.parentElement.querySelector(".comment-required-label");
+                if (oldLabel) oldLabel.remove();
+
+                if (!isNaN(val) && val <= COMMENT_REQUIRED_THRESHOLD) {
+                    // Marcar comentario como obligatorio
+                    commentInput.classList.add("comment-required");
+                    commentInput.placeholder = "❗ Comentario obligatorio para puntaje ≤ " + COMMENT_REQUIRED_THRESHOLD;
+                    const label = document.createElement("span");
+                    label.className = "comment-required-label";
+                    label.textContent = "⚠️ Debes justificar este puntaje con un comentario";
+                    commentInput.after(label);
+                } else {
+                    // Restaurar placeholder normal
+                    commentInput.placeholder = "Comentario sobre esta respuesta";
+                }
+            }
+        });
+    });
+}
+
+
 function toggleSupervisorOtro() {
     const select = document.getElementById("input-supervisor-evaluador");
     const group = document.getElementById("group-supervisor-otro");

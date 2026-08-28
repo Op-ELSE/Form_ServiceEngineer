@@ -741,22 +741,78 @@ input, select, textarea, button {
 }
 
 /* Specific toggle selection states */
-.toggle-options input[value="si"]:checked + .toggle-box {
+.toggle-options input[value="si"]:checked + .toggle-box,
+.toggle-options input[value="SI"]:checked + .toggle-box {
     background-color: var(--success-light);
     border-color: var(--success-green);
     color: var(--success-green);
+    font-weight: 700;
+    box-shadow: 0 0 0 3px rgba(0, 133, 67, 0.15);
 }
 
-.toggle-options input[value="no"]:checked + .toggle-box {
+.toggle-options input[value="no"]:checked + .toggle-box,
+.toggle-options input[value="NO"]:checked + .toggle-box {
     background-color: #FFF0F1;
     border-color: var(--error-red);
     color: var(--error-red);
+    font-weight: 700;
+    box-shadow: 0 0 0 3px rgba(210, 18, 46, 0.15);
 }
 
 .toggle-options input[value="na"]:checked + .toggle-box {
     background-color: var(--light-gray);
     border-color: var(--medium-gray);
     color: var(--dark-charcoal);
+}
+
+/* =========================================================
+   CAMPO INCOMPLETO - ICONO DE EXCLAMACIÓN
+   ========================================================= */
+.question-card.field-error {
+    border: 2px solid var(--error-red) !important;
+    background-color: #fff8f8;
+    position: relative;
+    animation: fieldShake 0.35s ease;
+}
+
+@keyframes fieldShake {
+    0%, 100% { transform: translateX(0); }
+    25%       { transform: translateX(-5px); }
+    75%       { transform: translateX(5px); }
+}
+
+.field-error-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--error-red);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 20px;
+    margin-top: 6px;
+}
+
+/* =========================================================
+   COMENTARIO OBLIGATORIO (puntaje ≤ 3)
+   ========================================================= */
+.question-comment-input.comment-required {
+    border: 2px solid var(--error-red) !important;
+    background-color: #fff8f8;
+}
+
+.question-comment-input.comment-required::placeholder {
+    color: var(--error-red);
+    font-weight: 600;
+}
+
+.comment-required-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--error-red);
+    margin-top: 4px;
 }
 
 /* Success View Style */
