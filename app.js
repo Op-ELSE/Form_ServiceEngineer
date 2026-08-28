@@ -91,6 +91,9 @@ window.addEventListener("DOMContentLoaded", () => {
     // Auto pre-llenado desde parámetros de URL si existen
     loadQueryParams();
 
+    // Inicializar escuchas para obligatoriedad de comentarios e iconos
+    initAllRatingListeners();
+
     // Foco automático al campo de código
     const lockInput = document.getElementById("lock-code-input");
     if (lockInput) setTimeout(() => lockInput.focus(), 300);
@@ -306,10 +309,6 @@ function validateEvalForm(radioNames, commentIds) {
     return isValid;
 }
 
-/**
- * Escucha cambios en radios para actualizar en tiempo real el estado
- * del comentario (mostrar/ocultar obligatoriedad).
- */
 function attachRatingListeners(radioName, commentId) {
     const radios = document.getElementsByName(radioName);
     const commentInput = document.getElementById(commentId);
@@ -317,34 +316,80 @@ function attachRatingListeners(radioName, commentId) {
 
     radios.forEach(r => {
         r.addEventListener("change", () => {
-            const val = parseInt(r.value, 10);
+            updateCommentState(radioName, commentId);
+        });
+    });
 
-            // Limpiar errores previos de esta tarjeta
-            if (card) card.classList.remove("field-error");
-            const oldBadge = card?.querySelector(".field-error-badge");
-            if (oldBadge) oldBadge.remove();
-
-            if (commentInput) {
-                commentInput.classList.remove("comment-required");
+    if (commentInput) {
+        commentInput.addEventListener("input", () => {
+            if (commentInput.value.trim().length > 0) {
                 const oldLabel = commentInput.parentElement.querySelector(".comment-required-label");
                 if (oldLabel) oldLabel.remove();
-
-                if (!isNaN(val) && val <= COMMENT_REQUIRED_THRESHOLD) {
-                    // Marcar comentario como obligatorio
-                    commentInput.classList.add("comment-required");
-                    commentInput.placeholder = "❗ Comentario obligatorio para puntaje ≤ " + COMMENT_REQUIRED_THRESHOLD;
-                    const label = document.createElement("span");
-                    label.className = "comment-required-label";
-                    label.textContent = "⚠️ Debes justificar este puntaje con un comentario";
-                    commentInput.after(label);
-                } else {
-                    // Restaurar placeholder normal
-                    commentInput.placeholder = "Comentario sobre esta respuesta";
+                if (card) {
+                    const badge = card.querySelector(".field-error-badge");
+                    if (!badge) card.classList.remove("field-error");
                 }
             }
         });
+    }
+}
+
+function updateCommentState(radioName, commentId) {
+    const valStr = getRadioVal(radioName);
+    const val = parseInt(valStr, 10);
+    const commentInput = document.getElementById(commentId);
+    const card = commentInput?.closest(".question-card");
+
+    if (card) card.classList.remove("field-error");
+    const oldBadge = card?.querySelector(".field-error-badge");
+    if (oldBadge) oldBadge.remove();
+
+    if (commentInput) {
+        commentInput.classList.remove("comment-required");
+        const oldLabel = commentInput.parentElement.querySelector(".comment-required-label");
+        if (oldLabel) oldLabel.remove();
+
+        if (!isNaN(val) && val <= COMMENT_REQUIRED_THRESHOLD) {
+            commentInput.classList.add("comment-required");
+            commentInput.placeholder = "❗ Comentario obligatorio para puntaje ≤ " + COMMENT_REQUIRED_THRESHOLD;
+            const label = document.createElement("span");
+            label.className = "comment-required-label";
+            label.textContent = "⚠️ Debes justificar este puntaje con un comentario";
+            commentInput.after(label);
+        } else {
+            commentInput.placeholder = "Comentario sobre esta respuesta";
+        }
+    }
+}
+
+function initAllRatingListeners() {
+    const allQuestions = [
+        ["q_op_equipos", "comm_q_op_equipos"],
+        ["q_op_epp", "comm_q_op_epp"],
+        ["q_op_seguridad", "comm_q_op_seguridad"],
+        ["q_op_actitud", "comm_q_op_actitud"],
+        ["q_op_puntualidad", "comm_q_op_puntualidad"],
+        ["q_op_conocimiento", "comm_q_op_conocimiento"],
+        ["q_op_planificacion", "comm_q_op_planificacion"],
+        ["q_hse_normas", "comm_q_hse_normas"],
+        ["q_hse_liderazgo", "comm_q_hse_liderazgo"],
+        ["q_hse_reporte", "comm_q_hse_reporte"],
+        ["q_hse_actitud", "comm_q_hse_actitud"],
+        ["q_hse_puntualidad", "comm_q_hse_puntualidad"],
+        ["q_alm_tiempo", "comm_q_alm_tiempo"],
+        ["q_alm_calidad", "comm_q_alm_calidad"],
+        ["q_alm_servicio", "comm_q_alm_servicio"],
+        ["q_mov_vehiculo", "comm_q_mov_vehiculo"],
+        ["q_mov_manejo", "comm_q_mov_manejo"],
+        ["q_mov_puntualidad", "comm_q_mov_puntualidad"],
+        ["q_mov_trato", "comm_q_mov_trato"]
+    ];
+
+    allQuestions.forEach(([rName, cId]) => {
+        attachRatingListeners(rName, cId);
     });
 }
+
 
 
 function toggleSupervisorOtro() {
@@ -652,9 +697,25 @@ function setupOpStep(index) {
         clearRadioGroup("q_op_planificacion");
         document.getElementById("comm_q_op_planificacion").value = "";
     }
+
+    const opQuestions = [
+        ["q_op_equipos", "comm_q_op_equipos"],
+        ["q_op_epp", "comm_q_op_epp"],
+        ["q_op_seguridad", "comm_q_op_seguridad"],
+        ["q_op_actitud", "comm_q_op_actitud"],
+        ["q_op_puntualidad", "comm_q_op_puntualidad"],
+        ["q_op_conocimiento", "comm_q_op_conocimiento"],
+        ["q_op_planificacion", "comm_q_op_planificacion"]
+    ];
+    opQuestions.forEach(([r, c]) => updateCommentState(r, c));
 }
 
 function submitOpEval() {
+    const radioNames  = ["q_op_equipos","q_op_epp","q_op_seguridad","q_op_actitud","q_op_puntualidad","q_op_conocimiento","q_op_planificacion"];
+    const commentIds  = ["comm_q_op_equipos","comm_q_op_epp","comm_q_op_seguridad","comm_q_op_actitud","comm_q_op_puntualidad","comm_q_op_conocimiento","comm_q_op_planificacion"];
+
+    if (!validateEvalForm(radioNames, commentIds)) return;
+
     const evalData = {
         empresa: contratistasOpList[currentOpIndex],
         equipos: getRadioVal("q_op_equipos"),
@@ -674,8 +735,6 @@ function submitOpEval() {
     };
 
     evaluacionesOperativos[currentOpIndex] = evalData;
-
-    // Avanzar al siguiente paso de la secuencia
     advanceOrFinish();
 }
 
@@ -705,9 +764,23 @@ function setupHseStep() {
         clearRadioGroup("q_hse_puntualidad");
         document.getElementById("comm_q_hse_puntualidad").value = "";
     }
+
+    const hseQuestions = [
+        ["q_hse_normas", "comm_q_hse_normas"],
+        ["q_hse_liderazgo", "comm_q_hse_liderazgo"],
+        ["q_hse_reporte", "comm_q_hse_reporte"],
+        ["q_hse_actitud", "comm_q_hse_actitud"],
+        ["q_hse_puntualidad", "comm_q_hse_puntualidad"]
+    ];
+    hseQuestions.forEach(([r, c]) => updateCommentState(r, c));
 }
 
 function submitHseEval() {
+    const radioNames = ["q_hse_normas","q_hse_liderazgo","q_hse_reporte","q_hse_actitud","q_hse_puntualidad"];
+    const commentIds = ["comm_q_hse_normas","comm_q_hse_liderazgo","comm_q_hse_reporte","comm_q_hse_actitud","comm_q_hse_puntualidad"];
+
+    if (!validateEvalForm(radioNames, commentIds)) return;
+
     evaluacionHSE = {
         empresa: datosGenerales.contratistaHSE,
         normas: getRadioVal("q_hse_normas"),
@@ -741,9 +814,21 @@ function setupAlmacenStep() {
         clearRadioGroup("q_alm_servicio");
         document.getElementById("comm_q_alm_servicio").value = "";
     }
+
+    const almQuestions = [
+        ["q_alm_tiempo", "comm_q_alm_tiempo"],
+        ["q_alm_calidad", "comm_q_alm_calidad"],
+        ["q_alm_servicio", "comm_q_alm_servicio"]
+    ];
+    almQuestions.forEach(([r, c]) => updateCommentState(r, c));
 }
 
 function submitAlmacenEval() {
+    const radioNames = ["q_alm_tiempo","q_alm_calidad","q_alm_servicio"];
+    const commentIds = ["comm_q_alm_tiempo","comm_q_alm_calidad","comm_q_alm_servicio"];
+
+    if (!validateEvalForm(radioNames, commentIds)) return;
+
     evaluacionAlmacen = {
         empresa: "GEEP - TALLER",
         tiempo: getRadioVal("q_alm_tiempo"),
@@ -778,9 +863,22 @@ function setupMovilidadStep() {
         clearRadioGroup("q_mov_trato");
         document.getElementById("comm_q_mov_trato").value = "";
     }
+
+    const movQuestions = [
+        ["q_mov_vehiculo", "comm_q_mov_vehiculo"],
+        ["q_mov_manejo", "comm_q_mov_manejo"],
+        ["q_mov_puntualidad", "comm_q_mov_puntualidad"],
+        ["q_mov_trato", "comm_q_mov_trato"]
+    ];
+    movQuestions.forEach(([r, c]) => updateCommentState(r, c));
 }
 
 function submitMovilidadEval() {
+    const radioNames = ["q_mov_vehiculo","q_mov_manejo","q_mov_puntualidad","q_mov_trato"];
+    const commentIds = ["comm_q_mov_vehiculo","comm_q_mov_manejo","comm_q_mov_puntualidad","comm_q_mov_trato"];
+
+    if (!validateEvalForm(radioNames, commentIds)) return;
+
     evaluacionMovilidad = {
         empresa: datosGenerales.contratistaMovilidad,
         vehiculo: getRadioVal("q_mov_vehiculo"),
