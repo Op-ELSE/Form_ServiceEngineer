@@ -11,6 +11,44 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+    <!-- ============================================================ -->
+    <!-- PANTALLA DE BLOQUEO POR CÓDIGO DE ACCESO (OS)               -->
+    <!-- ============================================================ -->
+    <div id="lock-screen">
+        <div class="lock-card">
+            <div class="lock-logo-area">
+                <img src="abb-logo.png" alt="ABB Logo" class="lock-logo">
+            </div>
+            <div class="lock-icon-wrap">
+                <div class="lock-icon">🔒</div>
+            </div>
+            <h2 class="lock-title">Acceso Restringido</h2>
+            <p class="lock-subtitle">Ingresa el <strong>Código de Acceso</strong> proporcionado para esta evaluación.</p>
+
+            <div class="lock-input-group">
+                <input
+                    type="text"
+                    id="lock-code-input"
+                    class="lock-input"
+                    placeholder="Ej: OS-45009821"
+                    autocomplete="off"
+                    onkeydown="if(event.key==='Enter') unlockForm()"
+                >
+            </div>
+
+            <div id="lock-error" class="lock-error" style="display:none;">
+                ❌ Código incorrecto. Verifica e intenta de nuevo.
+            </div>
+
+            <button class="lock-btn" onclick="unlockForm()">
+                Desbloquear Formulario
+            </button>
+
+            <p class="lock-hint">Si no tienes el código, contáctate con el supervisor ABB a cargo.</p>
+        </div>
+    </div>
+
     <!-- Top Header ABB Corporate -->
     <header class="abb-header">
         <div class="header-container">

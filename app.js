@@ -2,7 +2,7 @@
 // CONFIGURACIÓN DE ENVÍO - GOOGLE APPS SCRIPT (100% LIBRE DE BLOQUEOS ABB)
 // ==========================================================================
 // Pega aquí la URL de la aplicación web que generas en Google Apps Script:
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw_WCZmHoXq0Cio-0aRSDb1CdoXxYpFpoIdTQejb_1STXyVtfe0gVs0pOo3kmXinhk9/exec";
+const GOOGLE_SCRIPT_URL = "PEGAR_AQUI_TU_URL_DE_GOOGLE_APPS_SCRIPT";
 
 // Correo donde recibirás las evaluaciones de los supervisores:
 const DESTINATION_EMAIL = "geraldine.garcia-alarcon@pe.abb.com";
@@ -21,6 +21,64 @@ let evaluacionHSE = null;
 let evaluacionAlmacen = null;
 let evaluacionMovilidad = null;
 
+// ==========================================================================
+// PANTALLA DE BLOQUEO - CÓDIGO BASADO EN ORDEN DE SERVICIO (OS)
+// ==========================================================================
+
+// Normaliza el código: quita espacios, mayúsculas y elimina prefijos como OS-, OS/, os-, etc.
+function normalizeCode(val) {
+    return val.trim().toUpperCase().replace(/\s+/g, "").replace(/^OS[-\/]?/, "");
+}
+
+function unlockForm() {
+    const input = document.getElementById("lock-code-input");
+    const errorDiv = document.getElementById("lock-error");
+    const enteredCode = normalizeCode(input.value);
+
+    // Obtener la OS del URL como clave esperada
+    const params = new URLSearchParams(window.location.search);
+    const osParam = params.get("os");
+
+    // Si no hay OS en el URL, cualquier texto no vacío actúa como clave
+    // (el supervisor ingresa la OS manualmente y la plataforma la usará)
+    if (!osParam) {
+        // Sin OS en URL: el usuario ingresa la OS como código de acceso
+        if (enteredCode.length < 2) {
+            errorDiv.style.display = "block";
+            input.focus();
+            return;
+        }
+        // Guarda la OS ingresada para usarla luego en el formulario
+        sessionStorage.setItem("abb_access_os", enteredCode);
+        doUnlock();
+        return;
+    }
+
+    // Con OS en URL: validar que lo ingresado coincida con la OS del link
+    const expectedCode = normalizeCode(osParam);
+    if (enteredCode === expectedCode) {
+        errorDiv.style.display = "none";
+        sessionStorage.setItem("abb_access_os", enteredCode);
+        doUnlock();
+    } else {
+        errorDiv.style.display = "block";
+        input.value = "";
+        input.focus();
+        // Animación de sacudida
+        input.classList.remove("shake");
+        void input.offsetWidth;
+        input.classList.add("shake");
+    }
+}
+
+function doUnlock() {
+    const lockScreen = document.getElementById("lock-screen");
+    lockScreen.classList.add("lock-fadeout");
+    setTimeout(() => {
+        lockScreen.style.display = "none";
+    }, 400);
+}
+
 // Inicialización
 window.addEventListener("DOMContentLoaded", () => {
     // Fecha actual por defecto
@@ -29,6 +87,10 @@ window.addEventListener("DOMContentLoaded", () => {
 
     // Auto pre-llenado desde parámetros de URL si existen
     loadQueryParams();
+
+    // Foco automático al campo de código
+    const lockInput = document.getElementById("lock-code-input");
+    if (lockInput) setTimeout(() => lockInput.focus(), 300);
 });
 
 // ==========================================================================

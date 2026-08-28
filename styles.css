@@ -30,6 +30,156 @@
     --transition-normal: 0.3s ease;
 }
 
+/* ==========================================================================
+   PANTALLA DE BLOQUEO (LOCK SCREEN)
+   ========================================================================== */
+#lock-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: linear-gradient(135deg, #0f0f0f 0%, #1c1c1c 60%, #2a0000 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    transition: opacity 0.4s ease;
+}
+
+#lock-screen.lock-fadeout {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.lock-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 40px 36px 32px;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,0,15,0.15);
+    animation: lockCardIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes lockCardIn {
+    from { opacity: 0; transform: translateY(32px) scale(0.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.lock-logo-area {
+    margin-bottom: 20px;
+}
+
+.lock-logo {
+    height: 32px;
+    width: auto;
+}
+
+.lock-icon-wrap {
+    margin-bottom: 16px;
+}
+
+.lock-icon {
+    font-size: 48px;
+    line-height: 1;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+}
+
+.lock-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: #1c1c1c;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+
+.lock-subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+.lock-input-group {
+    margin-bottom: 12px;
+}
+
+.lock-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-align: center;
+    color: #1c1c1c;
+    background: #f9f9f9;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lock-input:focus {
+    border-color: var(--abb-red);
+    box-shadow: 0 0 0 3px rgba(255,0,15,0.12);
+    background: #fff;
+}
+
+.lock-error {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--error-red);
+    background: #fff0f1;
+    border: 1px solid #fcc;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+}
+
+.lock-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--abb-red);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: background 0.2s ease, transform 0.1s ease;
+    margin-top: 4px;
+}
+
+.lock-btn:hover {
+    background: var(--abb-red-hover);
+}
+
+.lock-btn:active {
+    transform: scale(0.98);
+}
+
+.lock-hint {
+    font-size: 12px;
+    color: #999;
+    margin-top: 20px;
+    line-height: 1.5;
+}
+
+/* Animación de sacudida al código incorrecto */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%       { transform: translateX(-8px); }
+    40%       { transform: translateX(8px); }
+    60%       { transform: translateX(-6px); }
+    80%       { transform: translateX(6px); }
+}
+
+.lock-input.shake {
+    animation: shake 0.4s ease;
+    border-color: var(--error-red) !important;
+}
+
 /* Reset and Base Styles */
 * {
     box-sizing: border-box;
