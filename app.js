@@ -39,28 +39,31 @@ function unlockForm() {
     const params = new URLSearchParams(window.location.search);
     const osParam = params.get("os");
 
-    // Si no hay OS en el URL, cualquier texto no vacío actúa como clave
-    // (el supervisor ingresa la OS manualmente y la plataforma la usará)
+    // Si no hay OS en el URL → enlace inválido, no se puede desbloquear
     if (!osParam) {
-        // Sin OS en URL: el usuario ingresa la OS como código de acceso
-        if (enteredCode.length < 2) {
-            errorDiv.style.display = "block";
-            input.focus();
-            return;
-        }
-        // Guarda la OS ingresada para usarla luego en el formulario
-        sessionStorage.setItem("abb_access_os", enteredCode);
-        doUnlock();
+        errorDiv.textContent = "⛔ Enlace inválido. Solicita el link correcto al supervisor ABB.";
+        errorDiv.style.display = "block";
+        input.disabled = true;
+        document.querySelector(".lock-btn").disabled = true;
         return;
     }
 
-    // Con OS en URL: validar que lo ingresado coincida con la OS del link
+    // Validar que lo ingresado coincida con la OS del link
     const expectedCode = normalizeCode(osParam);
+
+    if (enteredCode === "") {
+        errorDiv.textContent = "❌ Ingresa el código de acceso para continuar.";
+        errorDiv.style.display = "block";
+        input.focus();
+        return;
+    }
+
     if (enteredCode === expectedCode) {
         errorDiv.style.display = "none";
         sessionStorage.setItem("abb_access_os", enteredCode);
         doUnlock();
     } else {
+        errorDiv.textContent = "❌ Código incorrecto. Verifica e intenta de nuevo.";
         errorDiv.style.display = "block";
         input.value = "";
         input.focus();
