@@ -1,8 +1,7 @@
 // ==========================================================================
 // CONFIGURACIÓN DE ENVÍO - GOOGLE APPS SCRIPT (100% LIBRE DE BLOQUEOS ABB)
 // ==========================================================================
-// Pega aquí la URL de la aplicación web que generas en Google Apps Script:
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby93jhP5vazWtXuYP0eFRHdb5cldpBfgF32Z-AHv-mZovRAtsfvMGKG0Bq2sxmCCRUt/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxaWfzqwMN4qvEj2vny2J0d-JCuHworlgT3UIJXXVadd7L2OboS7xxQrW7yZJ_dWxmD/exec";
 
 // Correo donde recibirás las evaluaciones de los supervisores:
 const DESTINATION_EMAIL = "geraldine.garcia-alarcon@pe.abb.com";
@@ -908,6 +907,42 @@ function advanceOrFinish() {
 // ENVÍO DE LA EVALUACIÓN COMPLETA
 // ==========================================================================
 async function saveAndSendFullEvaluation() {
+    const defaultHSE = {
+        empresa: null,
+        normas: null,
+        normasComentario: null,
+        liderazgo: null,
+        liderazgoComentario: null,
+        reporte: null,
+        reporteComentario: null,
+        actitud: null,
+        actitudComentario: null,
+        puntualidad: null,
+        puntualidadComentario: null
+    };
+
+    const defaultAlmacen = {
+        empresa: null,
+        tiempo: null,
+        tiempoComentario: null,
+        calidad: null,
+        calidadComentario: null,
+        servicio: null,
+        servicioComentario: null
+    };
+
+    const defaultMovilidad = {
+        empresa: null,
+        vehiculo: null,
+        vehiculoComentario: null,
+        manejo: null,
+        manejoComentario: null,
+        puntualidad: null,
+        puntualidadComentario: null,
+        trato: null,
+        tratoComentario: null
+    };
+
     const payloadFinal = {
         id: datosGenerales.id,
         cliente: datosGenerales.cliente,
@@ -916,9 +951,9 @@ async function saveAndSendFullEvaluation() {
         supervisorEvaluador: datosGenerales.supervisorEvaluador,
         fecha: datosGenerales.fecha,
         evaluacionesOperativos: evaluacionesOperativos,
-        evaluacionHSE: evaluacionHSE,
-        evaluacionAlmacen: evaluacionAlmacen,
-        evaluacionMovilidad: evaluacionMovilidad,
+        evaluacionHSE: evaluacionHSE || defaultHSE,
+        evaluacionAlmacen: evaluacionAlmacen || defaultAlmacen,
+        evaluacionMovilidad: evaluacionMovilidad || defaultMovilidad,
         destinationEmail: DESTINATION_EMAIL
     };
 
